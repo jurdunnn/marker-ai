@@ -20,4 +20,9 @@ class Transcription extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function analysis()
+    {
+        return $this->hasOne(Analysis::class);
+    }
 }

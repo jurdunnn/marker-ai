@@ -38,6 +38,11 @@
                         <p>
                             {{ $transcription->transcription }}
                         </p>
+                        @if ($transcription->analysis)
+                            <p>
+                                {{ $transcription->analysis->analysis }}
+                            </p>
+                        @endif
                     </div>
                 </div>
             @endforeach

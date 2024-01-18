@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Analysis;
 use App\Models\Transcription;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -89,5 +90,11 @@ class VisionSandbox extends Component
             'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json'
         ])->post('https://api.openai.com/v1/chat/completions', $request);
+
+        Analysis::create([
+            'transcription_id' => $transcription->id,
+            'analysis' => $response->json()['choices'][0]['message']['content'],
+            'tokens' => $response->json()['usage']['total_tokens'],
+        ]);
     }
 }

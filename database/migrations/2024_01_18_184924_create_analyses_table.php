@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transcriptions', function (Blueprint $table) {
+        Schema::create('analyses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('url');
-            $table->longText('transcription');
+            $table->foreignId('transcription_id')->constrained();
+            $table->json('analysis');
             $table->bigInteger('tokens');
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transcriptions');
+        Schema::dropIfExists('analyses');
     }
 };
