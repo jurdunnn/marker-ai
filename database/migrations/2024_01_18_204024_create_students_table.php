@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transcriptions', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('student_id')->constrained();
-            $table->string('url');
-            $table->longText('text')->nullable();
-            $table->bigInteger('tokens');
+            $table->string('name');
+            $table->string('email')->nullable()->unique();
+            $table->dateTime('date_of_birth');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transcriptions');
+        Schema::dropIfExists('students');
     }
 };
