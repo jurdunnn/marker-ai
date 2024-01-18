@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transcriptions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('url');
-            $table->longText('text')->nullable();
-            $table->bigInteger('tokens');
-            $table->timestamps();
+        Schema::table('transcriptions', function (Blueprint $table) {
+            $table->foreignId('student_id')->constrained();
         });
     }
 
@@ -26,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transcriptions');
+        Schema::table('transcriptions', function (Blueprint $table) {
+            $table->dropForeign(['student_id']);
+            $table->dropColumn('student_id');
+        });
     }
 };
