@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('url');
-            $table->longText('transcription');
+            $table->longText('text')->nullable();
             $table->bigInteger('tokens');
             $table->timestamps();
         });

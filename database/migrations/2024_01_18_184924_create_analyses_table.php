@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('analyses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transcription_id')->constrained();
-            $table->json('analysis');
+            $table->json('text')->nullable();
             $table->bigInteger('tokens');
             $table->timestamps();
         });

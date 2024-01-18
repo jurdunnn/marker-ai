@@ -11,12 +11,17 @@ class Analysis extends Model
 
     protected $fillable = [
         'transcription_id',
-        'analysis',
+        'text',
         'tokens',
     ];
 
     public function transcription()
     {
         return $this->belongsTo(Transcription::class);
+    }
+
+    public function getErrorsAttribute()
+    {
+        return json_decode($this->text, true);
     }
 }

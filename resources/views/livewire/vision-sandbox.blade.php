@@ -36,12 +36,18 @@
                             Analyse
                         </button>
                         <p>
-                            {{ $transcription->transcription }}
+                            {{ $transcription->text }}
                         </p>
                         @if ($transcription->analysis)
-                            <p>
-                                {{ $transcription->analysis->analysis }}
-                            </p>
+                            <div class="ml-5">
+                                <h3 class="font-bold">Analysis</h3>
+
+                                @foreach ($transcription->analysis->errors as $error)
+                                    <p>
+                                        {{ $error['error_position'] }}: {{ $error['description'] }}
+                                    </p>
+                                @endforeach
+                            </div>
                         @endif
                     </div>
                 </div>

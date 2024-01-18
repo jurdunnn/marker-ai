@@ -12,7 +12,7 @@ class Transcription extends Model
     protected $fillable = [
         'user_id',
         'url',
-        'transcription',
+        'text',
         'tokens',
     ];
 
