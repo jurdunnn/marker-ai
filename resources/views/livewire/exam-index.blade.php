@@ -6,14 +6,6 @@
     <button onclick="location.href='{{ route('exam.create') }}'"  class="header-button">
         {{ __('Add Exam') }}
     </button>
-
-    <button class="header-button" disabled>
-        {{ __('Edit Exam') }}
-    </button>
-
-    <button class="header-button" disabled>
-        {{ __('Delete Exam') }}
-    </button>
 </x-slot>
 
 <x-container>
