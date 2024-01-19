@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     // Subject
     Route::group(['prefix' => 'subject'], function () {
         Route::get('list', SubjectIndex::class)->name('subject.index');
+        Route::get('create', SubjectForm::class)->name('subject.create');
         Route::get('{subject}', SubjectShow::class)->name('subject.show');
         Route::get('{subject}/edit', SubjectForm::class)->name('subject.edit');
     });
