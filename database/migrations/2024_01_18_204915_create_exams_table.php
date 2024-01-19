@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('status')->default('draft');
             $table->dateTime('start_at');
             $table->dateTime('end_at');
-            $table->dateTime('duration');
+            $table->integer('duration');
             $table->integer('total_marks');
             $table->integer('passing_marks');
             $table->timestamps();
