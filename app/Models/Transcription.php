@@ -12,6 +12,9 @@ class Transcription extends Model
     protected $fillable = [
         'user_id',
         'student_id',
+        'subject_id',
+        'exam_id',
+        'status_id',
         'url',
         'text',
         'tokens',
@@ -25,6 +28,21 @@ class Transcription extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function exam()
+    {
+        return $this->hasOne(Exam::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(TranscriptionStatusType::class);
     }
 
     public function analysis()

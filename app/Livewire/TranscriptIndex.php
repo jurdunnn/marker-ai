@@ -8,6 +8,8 @@ class TranscriptIndex extends Component
 {
     public function render()
     {
-        return view('livewire.transcript-index')->layout('layouts.app');
+        return view('livewire.transcript-index', [
+            'transcripts' => auth()->user()->transcriptions,
+        ])->layout('layouts.app');
     }
 }

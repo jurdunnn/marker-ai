@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     // Transcript
     Route::group(['prefix' => 'transcript'], function () {
         Route::get('list', TranscriptIndex::class)->name('transcript.index');
+        Route::get('create', TranscriptForm::class)->name('transcript.create');
         Route::get('{transcript}', TranscriptShow::class)->name('transcript.show');
         Route::get('{transcript}/edit', TranscriptForm::class)->name('transcript.edit');
     });
