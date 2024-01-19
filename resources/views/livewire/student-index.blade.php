@@ -18,18 +18,20 @@
 
 <x-container>
     @if ($students)
-        <table class="table">
+        <table class="w-full">
             <thead>
-                <tr>
+                <tr class="text-left">
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Email') }}</th>
+                    <th>{{ __('Date of Birth') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($students as $student)
-                    <tr>
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->email }}</td>
+                    <tr class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
+                        <td class="py-4 text-sm whitespace-nowrap">{{ $student->name }}</td>
+                        <td class="py-4 text-sm whitespace-nowrap">{{ $student->email }}</td>
+                        <td class="py-4 text-sm whitespace-nowrap">{{ $student->date_of_birth->format('F d, Y') }}</td>
                     </tr>
                 @endforeach
             </tbody>
