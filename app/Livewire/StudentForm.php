@@ -48,18 +48,17 @@ class StudentForm extends Component
     {
         $this->validate();
 
+        $properties = [
+            'user_id' => auth()->user()->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'date_of_birth' => $this->date_of_birth,
+        ];
+
         if ($this->creating) {
-            Student::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'date_of_birth' => $this->date_of_birth,
-            ]);
+            Student::create($properties);
         } else {
-            $this->student->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'date_of_birth' => $this->date_of_birth,
-            ]);
+            $this->student->update($properties);
         }
 
         return redirect()->route('student.index');
