@@ -8,6 +8,6 @@ class StudentIndex extends Component
 {
     public function render()
     {
-        return view('livewire.student-index');
+        return view('livewire.student-index')->layout('layouts.app');
     }
 }

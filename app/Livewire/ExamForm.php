@@ -8,6 +8,6 @@ class ExamForm extends Component
 {
     public function render()
     {
-        return view('livewire.exam-form');
+        return view('livewire.exam-form')->layout('layouts.app');
     }
 }

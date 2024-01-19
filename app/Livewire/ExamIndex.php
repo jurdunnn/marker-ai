@@ -8,6 +8,6 @@ class ExamIndex extends Component
 {
     public function render()
     {
-        return view('livewire.exam-index');
+        return view('livewire.exam-index')->layout('layouts.app');
     }
 }

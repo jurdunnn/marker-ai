@@ -8,6 +8,6 @@ class SubjectForm extends Component
 {
     public function render()
     {
-        return view('livewire.subject-form');
+        return view('livewire.subject-form')->layout('layouts.app');
     }
 }

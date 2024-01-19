@@ -8,6 +8,6 @@ class SubjectIndex extends Component
 {
     public function render()
     {
-        return view('livewire.subject-index');
+        return view('livewire.subject-index')->layout('layouts.app');
     }
 }

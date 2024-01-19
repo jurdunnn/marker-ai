@@ -8,6 +8,6 @@ class TranscriptForm extends Component
 {
     public function render()
     {
-        return view('livewire.transcript-form');
+        return view('livewire.transcript-form')->layout('layouts.app');
     }
 }

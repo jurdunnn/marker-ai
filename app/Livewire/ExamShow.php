@@ -8,6 +8,6 @@ class ExamShow extends Component
 {
     public function render()
     {
-        return view('livewire.exam-show');
+        return view('livewire.exam-show')->layout('layouts.app');
     }
 }

@@ -8,6 +8,6 @@ class StudentForm extends Component
 {
     public function render()
     {
-        return view('livewire.student-form');
+        return view('livewire.student-form')->layout('layouts.app');
     }
 }
