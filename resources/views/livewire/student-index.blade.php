@@ -17,5 +17,22 @@
 </x-slot>
 
 <x-container>
-    hello
+    @if ($students)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Email') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($students as $student)
+                    <tr>
+                        <td>{{ $student->name }}</td>
+                        <td>{{ $student->email }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 </x-container>
