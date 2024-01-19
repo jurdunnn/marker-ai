@@ -14,7 +14,7 @@ class VisionSandbox extends Component
 
     public function mount()
     {
-        $this->url = auth()->user()->transcriptions()->latest()->first()?->url ?? "";
+        $this->url = auth()->user()?->transcriptions()->latest()->first()?->url ?? "";
     }
 
     public function render()

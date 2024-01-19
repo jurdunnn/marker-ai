@@ -19,7 +19,7 @@
         </button>
     </form>
 
-    @if (auth()->user()->transcriptions)
+    @if (auth()->user()?->transcriptions)
         <div class="mt-5">
             <h1 class="text-3xl font-bold underline">Transcriptions</h1>
 
