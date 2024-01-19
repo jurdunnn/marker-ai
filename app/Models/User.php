@@ -52,4 +52,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class);
     }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
+
+    public function exams()
+    {
+        return $this->subjects->flatMap(function ($subject) {
+            return $subject->exams;
+        });
+    }
 }

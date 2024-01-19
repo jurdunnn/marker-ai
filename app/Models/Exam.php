@@ -24,7 +24,6 @@ class Exam extends Model
     protected $casts = [
         'start_at' => 'datetime',
         'end_at' => 'datetime',
-        'duration' => 'datetime',
     ];
 
     public function subject()

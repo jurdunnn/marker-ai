@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     // Exam
     Route::group(['prefix' => 'exam'], function () {
         Route::get('list', ExamIndex::class)->name('exam.index');
+        Route::get('create', ExamForm::class)->name('exam.create');
         Route::get('{exam}', ExamShow::class)->name('exam.show');
         Route::get('{exam}/edit', ExamForm::class)->name('exam.edit');
     });
