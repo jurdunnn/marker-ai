@@ -19,4 +19,21 @@ class Subject extends Model
     {
         return $this->hasMany(Exam::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function students()
+    {
+        return $this->exams->map(function ($exam) {
+            return $exam->students();
+        })->flatten()->unique();
+    }
+
+    public function transcriptions()
+    {
+        return $this->hasMany(Transcription::class);
+    }
 }
