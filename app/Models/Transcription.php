@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\TranscribeImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,5 +49,10 @@ class Transcription extends Model
     public function analysis()
     {
         return $this->hasOne(Analysis::class);
+    }
+
+    public function runVisionTranscription()
+    {
+        TranscribeImage::dispatch($this);
     }
 }
