@@ -86,7 +86,7 @@ class TranscribeImage implements ShouldQueue
         }
 
         $this->transcription->update([
-            'status_id' => TranscriptionStatusType::where('name', 'Complete')->first()->id,
+            'status_id' => TranscriptionStatusType::where('name', 'Processed')->first()->id,
             'text' => $response->json()['choices'][0]['message']['content'],
             'tokens' => $response->json()['usage']['total_tokens'],
         ]);

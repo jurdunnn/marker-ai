@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Analysis;
 use App\Models\Transcription;
+use App\Models\TranscriptionStatusType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -32,6 +33,10 @@ class AnalyseTranscript implements ShouldQueue
         $key = config('openai.api_key');
 
         $model = 'gpt-4';
+
+        $this->transcript->update([
+            'status_id' => TranscriptionStatusType::where('name', 'Analysing')->first()->id
+        ]);
 
         Log::info('Analyzing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
 
@@ -85,6 +90,10 @@ class AnalyseTranscript implements ShouldQueue
 
                 Log::info('Analysed sentence: ' . $item);
             });
+
+        $this->transcript->update([
+            'status_id' => TranscriptionStatusType::where('name', 'Complete')->first()->id
+        ]);
 
         Log::info('Finished analysing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
     }

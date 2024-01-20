@@ -80,6 +80,10 @@ class Transcription extends Model
     {
         $text = $this->text;
 
+        if ($this->status->name !== 'Complete') {
+            return $text;
+        }
+
         if ($this->analysis) {
             foreach (json_decode($this->analysis->text, true) as $error) {
                 $description = htmlspecialchars($error['description'], ENT_QUOTES, 'UTF-8');

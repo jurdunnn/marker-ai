@@ -21,8 +21,10 @@ return new class extends Migration
         // Add Pending, Processing, and Complete status types
         DB::insert('insert into transcription_status_types (name) values (?)', ['Pending']);
         DB::insert('insert into transcription_status_types (name) values (?)', ['Processing']);
+        DB::insert('insert into transcription_status_types (name) values (?)', ['Processed']);
         DB::insert('insert into transcription_status_types (name) values (?)', ['Complete']);
         DB::insert('insert into transcription_status_types (name) values (?)', ['Error']);
+        DB::insert('insert into transcription_status_types (name) values (?)', ['Analysing']);
     }
 
     /**
