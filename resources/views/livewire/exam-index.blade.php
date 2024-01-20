@@ -25,7 +25,7 @@
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->subject->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->description }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ gmdate('H:i:s', $exam->duration) }}</td>
+                        <td class="py-4 text-sm whitespace-nowrap">{{ $exam->formatted_duration }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -27,12 +27,16 @@ class Student extends Model
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->transcriptions->map(function ($transcription) {
+            return $transcription->exam;
+        })->unique();
     }
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->transcriptions->map(function ($transcription) {
+            return $transcription->subject;
+        })->unique();
     }
 
     public function user()

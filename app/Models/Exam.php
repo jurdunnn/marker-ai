@@ -30,4 +30,51 @@ class Exam extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function transcriptions()
+    {
+        return $this->hasMany(Transcription::class);
+    }
+
+    public function students()
+    {
+        return $this->transcriptions->map(function ($transcription) {
+            return $transcription->student;
+        });
+    }
+
+    public function user()
+    {
+        return $this->subject->user;
+    }
+
+    public function getIsStartedAttribute()
+    {
+        return $this->start_at->isPast();
+    }
+
+    public function getIsEndedAttribute()
+    {
+        return $this->end_at->isPast();
+    }
+
+    public function getIsOngoingAttribute()
+    {
+        return $this->is_started && !$this->is_ended;
+    }
+
+    public function getIsUpcomingAttribute()
+    {
+        return !$this->is_started;
+    }
+
+    public function getIsCompletedAttribute()
+    {
+        return $this->is_ended;
+    }
+
+    public function getFormattedDurationAttribute()
+    {
+        return gmdate('H:i:s', $this->duration);
+    }
 }
