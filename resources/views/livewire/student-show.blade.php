@@ -90,7 +90,7 @@
                         <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Status') }}</th>
                     </tr>
                     @foreach ($student->transcriptions as $transcription)
-                        <tr  class="cursor-pointer" onclick="window.location='{{ route('transcript.show', ['transcript' => $transcription->id]) }}'">
+                        <tr class="cursor-pointer" onclick="window.location='{{ route('transcript.show', ['transcript' => $transcription->id]) }}'">
                             <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->subject->name }}</td>
                             <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->exam->name }}</td>
                             <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->status->name }}</td>
