@@ -6,6 +6,12 @@
     <button onclick="location.href='{{ route('transcript.edit', ['transcript' => $transcript->id]) }}'"  class="header-button">
         {{ __('Edit Transcript') }}
     </button>
+
+    <div>
+        <button onclick="Livewire.dispatch('rerunTranscribe')" class="header-button" {{ $transcript->text ? 'disabled' : '' }}>
+        {{ __('Rerun Transcribe') }}
+        </button>
+    </div>
 </x-slot>
 
 <div>

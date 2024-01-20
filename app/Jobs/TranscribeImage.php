@@ -36,6 +36,10 @@ class TranscribeImage implements ShouldQueue
 
         Log::info('Running Transcribe Job for Transcription ID: ' . $this->transcription->id . ' with model: ' . $model);
 
+        $this->transcription->update([
+            'status_id' => TranscriptionStatusType::where('name', 'Processing')->first()->id,
+        ]);
+
         $request = [
             "model" => $model,
             "messages" => [
@@ -66,7 +70,7 @@ class TranscribeImage implements ShouldQueue
         Log::info('Transcription ID: ' . $this->transcription->id . ' Response: ' . $response->body());
 
         $this->transcription->update([
-            'status_id' => TranscriptionStatusType::where('name', 'Completed')->first()->id,
+            'status_id' => TranscriptionStatusType::where('name', 'Complete')->first()->id,
             'text' => $response->json()['choices'][0]['message']['content'],
             'tokens' => $response->json()['usage']['total_tokens'],
         ]);
