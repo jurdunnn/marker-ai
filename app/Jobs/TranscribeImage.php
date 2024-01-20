@@ -69,6 +69,12 @@ class TranscribeImage implements ShouldQueue
 
         Log::info('Transcription ID: ' . $this->transcription->id . ' Response: ' . $response->body());
 
+        if (isset('errors', $response->body())) {
+            $this->transcription->update([
+                'status_id' => TranscriptionStatusType::where('name', 'Error')->first()->id,
+            ]);
+        }
+
         $this->transcription->update([
             'status_id' => TranscriptionStatusType::where('name', 'Complete')->first()->id,
             'text' => $response->json()['choices'][0]['message']['content'],
