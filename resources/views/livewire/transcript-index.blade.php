@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 @foreach ($transcripts as $transcript)
-                    <tr class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
+                    <tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
                         <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->student->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->subject->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->status->name }}</td>

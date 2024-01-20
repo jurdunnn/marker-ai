@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 @foreach ($subjects as $subject)
-                    <tr class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
+                    <tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
                         <td class="py-4 text-sm whitespace-nowrap">{{ $subject->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $subject->description }}</td>
                     </tr>

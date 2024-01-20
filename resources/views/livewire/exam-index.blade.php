@@ -21,7 +21,7 @@
             </thead>
             <tbody>
                 @foreach ($exams as $exam)
-                    <tr class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
+                    <tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->subject->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->name }}</td>
                         <td class="py-4 text-sm whitespace-nowrap">{{ $exam->description }}</td>
