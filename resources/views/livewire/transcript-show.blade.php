@@ -12,6 +12,12 @@
         {{ __('Retry Transcribe') }}
         </button>
     </div>
+
+    <div>
+        <button onclick="Livewire.dispatch('rerunAnalysis')" class="header-button">
+        {{ __('Retry Analysis') }}
+        </button>
+    </div>
 </x-slot>
 
 <div>
@@ -53,24 +59,11 @@
         <x-image-and-container image="{{ $transcript->url }}">
             @if ($transcript->text)
                 <div class="prose">
-                    {!! $transcript->text !!}
+                    {!! nl2br($transcript->analysed_transcript) !!}
                 </div>
             @else
                 <div class="p-6 text-gray-900">
                     {{ __('No transcript text available.') }}
-                </div>
-            @endif
-
-            @if ($transcript->analysis)
-                <div class="mt-2">
-                        <h2 class="text-xl font-semibold">{{ __('Analysis') }}</h2>
-
-                        @foreach (json_decode($transcript->analysis->text, true) as $text)
-                            <div class="flex flex-row text-left gap-x-4">
-                                <p class="py-4 text-sm">{{ $text['error_position'] ?? '' }}</p>
-                                <p class="py-4 text-sm">{{ $text['description'] ?? '' }}</p>
-                            </div>
-                        @endforeach
                 </div>
             @endif
         </x-image-and-container>

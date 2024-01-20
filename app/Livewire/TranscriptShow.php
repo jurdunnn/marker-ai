@@ -9,7 +9,7 @@ class TranscriptShow extends Component
 {
     public Transcription $transcript;
 
-    protected $listeners = ['rerunTranscribe'];
+    protected $listeners = ['rerunTranscribe', 'rerunAnalysis'];
 
     public function render()
     {
@@ -19,5 +19,10 @@ class TranscriptShow extends Component
     public function rerunTranscribe()
     {
         $this->transcript->runVisionTranscription();
+    }
+
+    public function rerunAnalysis()
+    {
+        $this->transcript->runAnalysis();
     }
 }

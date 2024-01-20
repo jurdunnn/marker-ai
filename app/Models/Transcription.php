@@ -6,6 +6,7 @@ use App\Jobs\AnalyseTranscript;
 use App\Jobs\TranscribeImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\Extension\DescriptionList\Renderer\DescriptionRenderer;
 
 class Transcription extends Model
 {
@@ -73,5 +74,21 @@ class Transcription extends Model
     public function runAnalysis()
     {
         AnalyseTranscript::dispatch($this);
+    }
+
+    public function getAnalysedTranscriptAttribute()
+    {
+        $text = $this->text;
+        // Surround the $text with span tags for each $this->analysis->text to highlight the errors
+
+        if ($this->analysis) {
+            foreach (json_decode($this->analysis->text, true) as $error) {
+                $description = htmlspecialchars($error['description'], ENT_QUOTES, 'UTF-8');
+
+                $text = str_replace($error['sentence'], '<span title="' . $description . '" style="cursor: help; color:white; background-color: #be123c;">' . $error['sentence'] . '</span>', $text);
+            }
+        }
+
+        return $text;
     }
 }

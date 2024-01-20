@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AnalyseTranscript implements ShouldQueue
 {
@@ -32,6 +33,8 @@ class AnalyseTranscript implements ShouldQueue
 
         $model = 'gpt-4';
 
+        Log::info('Analyzing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
+
         collect(explode('.', $this->transcript->text)) // Split the text into sentences
             ->filter() // Remove empty sentences
             ->each(function ($item) use ($model, $key) { // For each sentence
@@ -40,7 +43,7 @@ class AnalyseTranscript implements ShouldQueue
                     "messages" => [
                         (object) [
                             "role" => "system",
-                            "content" => "Output JSON the grammatical errors of this transcription. Provide information such as the position (starting character and ending character position e.g 6-12) of each grammatical error. Provide a description of each error. The JSON keys returned should be strictly followed: description, error_position."
+                            "content" => "Output JSON the grammatical errors of this transcription. Provide each word relevant to the grammatical error as a sentence, so that I may identify where the grammatical error is. Provide a description of each error. The JSON keys returned should be strictly followed: sentence, description"
                         ],
                         (object) [
                             "role" => "user",
@@ -79,7 +82,11 @@ class AnalyseTranscript implements ShouldQueue
                         'tokens' => $analysis->tokens + (int) $response->json()['usage']['total_tokens'],
                     ]);
                 }
+
+                Log::info('Analysed sentence: ' . $item);
             });
+
+        Log::info('Finished analysing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
     }
 
     private function normalizeErrorsArray($array)
@@ -87,11 +94,11 @@ class AnalyseTranscript implements ShouldQueue
         $normalized = [];
 
         foreach ($array as $key => $value) {
-            if (is_array($value) && isset($value['description']) && isset($value['error_position'])) {
+            if (is_array($value) && isset($value['description']) && isset($value['sentence'])) {
                 $normalized[] = $value;
-            } elseif ($key === 'errors' && is_array($value)) {
+            } elseif ($key === 'sentence' && is_array($value)) {
                 $normalized = array_merge($normalized, $value);
-            } elseif (strpos($key, 'error_') === 0 && is_array($value)) {
+            } elseif (strpos($key, 'sentence') === 0 && is_array($value)) {
                 $normalized[] = $value;
             }
         }
