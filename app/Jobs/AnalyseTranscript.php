@@ -48,7 +48,7 @@ class AnalyseTranscript implements ShouldQueue
                     "messages" => [
                         (object) [
                             "role" => "system",
-                            "content" => "Output JSON the grammatical errors of this transcription. Provide each word relevant to the grammatical error as a sentence, so that I may identify where the grammatical error is. Provide a description of each error. The JSON keys returned should be strictly followed: sentence, description"
+                            "content" => "Output JSON the grammatical errors of this transcription. Provide each word relevant to the grammatical error as a sentence, so that I may identify where the grammatical error is. Provide a description of each error. Be sure to look out for the capitalization of words. Strictly do not report that there are no grammatical errors. If there are no errors, then skip. Try to avoid reporting on errors within quotation marks, such as 'everything was in vicks', as this is a quote from a book. The JSON keys returned should be strictly followed: sentence, description"
                         ],
                         (object) [
                             "role" => "user",
