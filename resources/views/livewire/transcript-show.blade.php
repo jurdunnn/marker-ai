@@ -9,7 +9,7 @@
 
     <div>
         <button onclick="Livewire.dispatch('rerunTranscribe')" class="header-button" {{ $transcript->text ? 'disabled' : '' }}>
-        {{ __('Rerun Transcribe') }}
+        {{ __('Retry Transcribe') }}
         </button>
     </div>
 </x-slot>

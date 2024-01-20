@@ -18,6 +18,10 @@ class TranscriptShow extends Component
 
     public function rerunTranscribe()
     {
+        if ($this->transcript->status->name !== 'Pending') {
+            return;
+        }
+
         $this->transcript->runVisionTranscription();
     }
 }
