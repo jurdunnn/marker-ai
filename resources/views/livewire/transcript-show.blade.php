@@ -20,6 +20,104 @@
     </div>
 </x-slot>
 
+<script>
+    function openErrorModal() {
+        setTimeout(function() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
+
+            if (selectedText.length > 0) {
+                Livewire.dispatch('openErrorModal', { text: selectedText });
+
+                const errorModal = document.getElementById('error-modal');
+
+                // Set errorModal.style.top and left to be above the selected text
+                const range = selection.getRangeAt(0);
+
+                const rect = range.getBoundingClientRect();
+
+                // Function to calculate the total offset of an element
+                function getTotalOffset(elem) {
+                    let top = 0, left = 0;
+                    do {
+                        top += elem.offsetTop || 0;
+                        left += elem.offsetLeft || 0;
+                        elem = elem.offsetParent;
+                    } while (elem);
+                    return { top, left };
+                }
+
+                // Get the total offset of the range's common ancestor container
+                const commonAncestor = range.commonAncestorContainer.nodeType === Node.TEXT_NODE
+                    ? range.commonAncestorContainer.parentNode
+                    : range.commonAncestorContainer;
+
+                const totalOffset = getTotalOffset(commonAncestor);
+
+                // Calculate the top and left positions, including the total offset
+                const modalTop = rect.top + window.scrollY - totalOffset.top - errorModal.offsetHeight - 10;
+
+                const modalLeft = rect.left + window.scrollX + 50% - totalOffset.left + (rect.width / 2) - (errorModal.offsetWidth / 2);
+
+                // Apply the calculated positions to the modal
+                errorModal.style.top = `${modalTop}px`;
+
+                errorModal.style.left = `${modalLeft}px`;
+
+                errorModal.classList.remove('invisible');
+
+                // Focus the input
+                errorModal.querySelector('input').focus();
+
+                // Add background colour of light grey to the selected text
+                const span = document.createElement('span');
+
+                span.style.backgroundColor = '#f3f4f6';
+
+                span.appendChild(range.extractContents());
+
+                span.id = 'selected-text';
+
+                range.insertNode(span);
+            }
+        }, 10);
+    }
+
+    function hideErrorModal() {
+        // Hide the modal
+        const errorModal = document.getElementById('error-modal');
+
+        errorModal.classList.add('invisible');
+
+        // Remove the background colour of light grey from the selected text
+        const span = document.getElementById('selected-text');
+
+        span.style.backgroundColor = 'transparent';
+
+        // Clear the input
+        errorModal.querySelector('input').value = '';
+
+        // Reset the errorModalText property
+        Livewire.dispatch('resetErrorModalText');
+    }
+
+    document.addEventListener('mouseup', openErrorModal);
+
+    document.addEventListener('touchend', openErrorModal);
+
+    document.addEventListener('keyup', function(event) {
+        if (event.key === 'Shift' || event.key === 'Control' || event.key === 'Meta' || event.key.startsWith('Arrow')) {
+            openErrorModal();
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        if (event.key === 'Escape') {
+            hideErrorModal();
+        }
+    });
+</script>
+
 <div>
     <div>
         <x-container>
@@ -55,8 +153,33 @@
         </x-container>
     </div>
 
-    <div class="mt-8">
+    <div class="relative mt-8">
         <x-image-and-container image="{{ $transcript->url }}">
+            <div id="error-modal" class="absolute invisible w-1/4 shadow-xl">
+                <form id="error-form" class="relative flex flex-row bg-white shadow-xl rounded-md">
+                    <input
+                        type="text"
+                        id="error-modal-input"
+                        class="w-full px-4 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="{{ __('Write a new error for this sentence') }}"
+                        >
+                        <button type="submit" class="absolute top-0 right-0 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-r-md hover:bg-blue-500">
+                            {{ __('Add Error') }}
+                        </button>
+                </form>
+                <script>
+                    document.getElementById('error-form').addEventListener('submit', function(event) {
+                        event.preventDefault(); // Prevent the form from submitting the traditional way
+
+                        var inputValue = document.getElementById('error-modal-input').value;
+
+                        Livewire.dispatch('addToAnalysis', { text: inputValue }); // Dispatch the Livewire event with the input value
+
+                        hideErrorModal(); // Hide the modal
+                    });
+                </script>
+            </div>
+
             @if ($transcript->text)
                 <div class="prose">
                     {!! nl2br($transcript->analysed_transcript) !!}
@@ -69,4 +192,3 @@
         </x-image-and-container>
     </div>
 </div>
-
