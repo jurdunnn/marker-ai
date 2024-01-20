@@ -79,7 +79,6 @@ class Transcription extends Model
     public function getAnalysedTranscriptAttribute()
     {
         $text = $this->text;
-        // Surround the $text with span tags for each $this->analysis->text to highlight the errors
 
         if ($this->analysis) {
             foreach (json_decode($this->analysis->text, true) as $error) {
