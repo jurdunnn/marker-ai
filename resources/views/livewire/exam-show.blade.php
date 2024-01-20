@@ -94,7 +94,7 @@
                     @foreach ($exam->transcriptions as $transcript)
                         <tr class="cursor-pointer" onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
                             <td class="py-4 text-sm whitespace-nowrap">{{ $loop->index + 1 }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $student->name }}</td>
+                            <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->student->name }}</td>
                         </tr>
                     @endforeach
                 </tbody>
