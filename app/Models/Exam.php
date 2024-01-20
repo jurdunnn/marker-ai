@@ -40,7 +40,7 @@ class Exam extends Model
     {
         return $this->transcriptions->map(function ($transcription) {
             return $transcription->student;
-        });
+        })->unique();
     }
 
     public function user()
@@ -73,8 +73,43 @@ class Exam extends Model
         return $this->is_ended;
     }
 
+    public function getFormattedStartAtAttribute()
+    {
+        return $this->start_at->format('d M Y, h:i A');
+    }
+
+    public function getFormattedEndAtAttribute()
+    {
+        return $this->end_at->format('d M Y, h:i A');
+    }
+
+    public function getStatusAttribute()
+    {
+        if ($this->is_upcoming) {
+            return 'Upcoming';
+        }
+
+        if ($this->is_ongoing) {
+            return 'Ongoing';
+        }
+
+        if ($this->is_completed) {
+            return 'Completed';
+        }
+    }
+
     public function getFormattedDurationAttribute()
     {
         return gmdate('H:i:s', $this->duration);
+    }
+
+    public function getNumberOfStudentsAttribute()
+    {
+        return $this->students()->count();
+    }
+
+    public function getNumberOfTranscriptsAttribute()
+    {
+        return $this->transcriptions()->count();
     }
 }
