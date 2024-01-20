@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\AnalyseTranscript;
 use App\Jobs\TranscribeImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,19 @@ class Transcription extends Model
         'text',
         'tokens',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($transcription) {
+            $transcription->runVisionTranscription();
+        });
+
+        static::updated(function ($transcription) {
+            if ($transcription->isDirty('text')) {
+                $transcription->runAnalysis();
+            }
+        });
+    }
 
     public function user()
     {
@@ -54,5 +68,10 @@ class Transcription extends Model
     public function runVisionTranscription()
     {
         TranscribeImage::dispatch($this);
+    }
+
+    public function runAnalysis()
+    {
+        AnalyseTranscript::dispatch($this);
     }
 }

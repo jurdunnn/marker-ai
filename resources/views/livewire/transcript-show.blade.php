@@ -61,6 +61,24 @@
                 </div>
             @endif
 
+            @if ($transcript->analysis)
+                <div class="mt-2">
+                        <h2 class="text-xl font-semibold">{{ __('Analysis') }}</h2>
+
+                        <table class="w-full">
+                            <tbody>
+                                @foreach (json_decode($transcript->analysis->text, true) as $text)
+                                    <tr>
+                                        <td class="py-4 text-sm whitespace-nowrap">{{ $text['description'] ?? '' }}</td>
+                                        <td class="py-4 text-sm whitespace-nowrap">{{ $text['error_position'] ?? '' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                </div>
+            @endif
+
+
         </x-image-and-container>
     </div>
 </div>
