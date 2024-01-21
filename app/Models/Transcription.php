@@ -85,14 +85,14 @@ class Transcription extends Model
         }
 
         if ($this->analysis) {
-            foreach (json_decode($this->analysis->text, true) as $error) {
+            foreach (json_decode($this->analysis->text, true) as $index => $error) {
                 $description = htmlspecialchars($error['description'], ENT_QUOTES, 'UTF-8');
 
                 $title = htmlspecialchars_decode($description, ENT_QUOTES);
 
                 $text = str_replace(
                     $error['sentence'],
-                    '<span style="cursor: help; color:white; background-color: #be123c;" title="' . $title . '">' . $error['sentence'] . '</span>',
+                    '<span id="sentence-error-' . $index . '" style="position: relative; cursor: help; color:white; background-color: #be123c;" title="' . $title . '">' . $error['sentence'] . '</span>',
                     $text
                 );
             }

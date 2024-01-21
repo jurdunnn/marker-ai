@@ -17,7 +17,8 @@ class TranscriptShow extends Component
         'rerunAnalysis',
         'openErrorModal',
         'resetErrorModalText',
-        'addToAnalysis'
+        'addToAnalysis',
+        'deleteSentence',
     ];
 
     public function render()
@@ -51,7 +52,8 @@ class TranscriptShow extends Component
 
     public function addToAnalysis($text)
     {
-        if (str_word_count($this->errorModal) <= 4) {
+        // This tool is to select sentences, not individual words.
+        if (str_word_count($this->errorModal) < 3) {
             return;
         }
 
@@ -67,5 +69,33 @@ class TranscriptShow extends Component
         $this->transcript->analysis->update([
             'text' => $newText,
         ]);
+
+        $this->refreshTranscript();
+    }
+
+    public function deleteSentence($sentenceToDelete)
+    {
+        // Decode the existing analysis text into an array
+        $textArray = json_decode($this->transcript->analysis->text, true);
+
+        $updatedTextArray = array_filter($textArray, function ($array) use ($sentenceToDelete) {
+            return $array['sentence'] !== $sentenceToDelete;
+        });
+
+        // Re-encode the updated array back into JSON
+        $newText = json_encode(array_values($updatedTextArray));
+        // Update the analysis text with the new JSON
+        $this->transcript->analysis->update([
+            'text' => $newText,
+        ]);
+        // Refresh the transcript to reflect the changes
+        $this->refreshTranscript();
+    }
+
+    private function refreshTranscript()
+    {
+        $this->transcript->refresh();
+
+        $this->transcript->analysis->refresh();
     }
 }

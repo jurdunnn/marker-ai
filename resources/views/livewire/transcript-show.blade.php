@@ -57,7 +57,7 @@
                 // Calculate the top and left positions, including the total offset
                 const modalTop = rect.top + window.scrollY - totalOffset.top - errorModal.offsetHeight - 10;
 
-                const modalLeft = rect.left + window.scrollX + 50% - totalOffset.left + (rect.width / 2) - (errorModal.offsetWidth / 2);
+                const modalLeft = rect.left + window.scrollX + 20% - totalOffset.left + (rect.width / 2) - (errorModal.offsetWidth / 2);
 
                 // Apply the calculated positions to the modal
                 errorModal.style.top = `${modalTop}px`;
@@ -156,7 +156,7 @@
     <div class="relative mt-8">
         <x-image-and-container image="{{ $transcript->url }}">
             <div id="error-modal" class="absolute invisible w-1/4 shadow-xl">
-                <form id="error-form" class="relative flex flex-row bg-white shadow-xl rounded-md">
+                <form id="error-form" class="z-10 relative flex flex-row bg-white shadow-xl rounded-md">
                     <input
                         type="text"
                         id="error-modal-input"
@@ -167,16 +167,68 @@
                             {{ __('Add Error') }}
                         </button>
                 </form>
+
                 <script>
+                    // This script handles the form submission for the error modal
                     document.getElementById('error-form').addEventListener('submit', function(event) {
-                        event.preventDefault(); // Prevent the form from submitting the traditional way
+                        event.preventDefault();
 
                         var inputValue = document.getElementById('error-modal-input').value;
 
-                        Livewire.dispatch('addToAnalysis', { text: inputValue }); // Dispatch the Livewire event with the input value
+                        Livewire.dispatch('addToAnalysis', { text: inputValue });
 
-                        hideErrorModal(); // Hide the modal
+                        hideErrorModal();
+
+                        setTimeout(function() {
+                            window.location.reload(true);
+                        }, 500);
                     });
+
+                </script>
+
+                <script>
+                    // This script handles the click event on sentences to remove them from the analysis
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const sentenceErrors = document.querySelectorAll('[id^="sentence-error"]');
+                        sentenceErrors.forEach(function(element) {
+                            const sentence = element.textContent;
+                            element.addEventListener('click', function() {
+                                var deleteButtons = document.querySelectorAll('.delete-btn');
+
+                                if ((!this.nextElementSibling || !this.nextElementSibling.classList.contains('delete-btn')) && deleteButtons.length == 0) {
+                                    var deleteButton = document.createElement('button');
+
+                                    deleteButton.textContent = 'Delete';
+
+                                    deleteButton.className = 'delete-btn';
+
+                                    element.appendChild(deleteButton);
+                                }
+
+                                if (deleteButtons.length > 0) {
+                                    deleteButtons[0].addEventListener('click', function(event) {
+                                        event.stopPropagation();
+
+                                        removeDeleteButtons();
+
+                                        Livewire.dispatch('deleteSentence', { sentenceToDelete: sentence });
+
+                                        setTimeout(function() {
+                                            window.location.reload(true);
+                                        }, 500);
+                                    });
+                                }
+                            });
+                        });
+                    });
+
+                    function removeDeleteButtons() {
+                        var deleteButtons = document.querySelectorAll('.delete-btn');
+
+                        deleteButtons.forEach(function(element) {
+                            element.remove();
+                        });
+                    }
                 </script>
             </div>
 
