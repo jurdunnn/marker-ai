@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="w-1/4 bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="h-full fixed sm:px-6 lg:px-8">
+    <div class="fixed h-full sm:px-6 lg:px-8">
         <div class="flex flex-col justify-between h-full">
             <div class="w-full">
                 <!-- Logo -->
@@ -13,22 +13,42 @@
                 <!-- Navigation Links -->
                 <div class="hidden w-full py-8 mt-12 gap-y-8 sm:flex-col sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-gauge fa-xl"></i>
+                        </span>
+
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.*')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-user fa-xl"></i>
+                        </span>
+
                         {{ __('Students') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('exam.index')" :active="request()->routeIs('exam.*')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-school fa-xl"></i>
+                        </span>
+
                         {{ __('Exams') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('subject.index')" :active="request()->routeIs('subject.*')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-flask fa-xl"></i>
+                        </span>
+
                         {{ __('Subjects') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('transcript.index')" :active="request()->routeIs('transcript.*')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-file fa-xl"></i>
+                        </span>
+
                         {{ __('Transcripts') }}
                     </x-nav-link>
                 </div>
