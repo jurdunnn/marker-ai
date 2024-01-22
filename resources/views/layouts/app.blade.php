@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name') }}</title>
 
+        <link href="{{ asset('fontawesome/css/fontawesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('fontawesome/css/brands.css') }}" rel="stylesheet">
+        <link href="{{ asset('fontawesome/css/solid.css') }}" rel="stylesheet">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
