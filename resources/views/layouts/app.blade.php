@@ -15,32 +15,36 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="flex min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                            {{ $header }}
-                        </h2>
-                    </div>
-                </header>
-            @endif
+            <div class="w-full">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class="fixed w-full bg-white">
+                        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                            <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                                {{ $header }}
+                            </h2>
+                        </div>
+                    </header>
+                @endif
 
-            @isset($headerButtons)
-                <div class="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div class="flex items-center justify-end pt-2 mx-auto gap-x-3 max-w-7xl sm:px-2 lg:px-4">
-                        {{ $headerButtons }}
-                    </div>
+                <div class="mt-20">
+                    @isset($headerButtons)
+                        <div class="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                            <div class="flex items-center justify-end pt-2 mx-auto gap-x-3 max-w-7xl sm:px-2 lg:px-4">
+                                {{ $headerButtons }}
+                            </div>
+                        </div>
+                    @endisset
+
+                    <!-- Page Content -->
+                    <main>
+                        {{ $slot }}
+                    </main>
                 </div>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            </div>
         </div>
     </body>
 </html>
