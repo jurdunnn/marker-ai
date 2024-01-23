@@ -25,8 +25,8 @@
             <div class="w-full">
                 <!-- Page Heading -->
                 @if (isset($header))
-                    <header class="fixed w-full bg-white">
-                        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <header class="fixed w-full bg-white border-l-2 border-gray-100">
+                        <div class="px-4 py-6 max-w-7xl">
                             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                                 {{ $header }}
                             </h2>

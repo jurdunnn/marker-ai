@@ -8,7 +8,7 @@
     </button>
 
     <div>
-        <button onclick="Livewire.dispatch('rerunTranscribe')" class="header-button" {{ $transcript->text ? 'disabled' : '' }}>
+        <button onclick="Livewire.dispatch('rerunTranscribe')" class="header-button">
         {{ __('Retry Transcribe') }}
         </button>
     </div>
@@ -156,7 +156,7 @@
     <div class="relative mt-8">
         <x-image-and-container image="{{ $transcript->url }}">
             <div id="error-modal" class="absolute invisible w-1/4 shadow-xl">
-                <form id="error-form" class="z-10 relative flex flex-row bg-white shadow-xl rounded-md">
+                <form id="error-form" class="relative z-10 flex flex-row bg-white shadow-xl rounded-md">
                     <input
                         type="text"
                         id="error-modal-input"
