@@ -8,13 +8,15 @@
     </button>
 </x-slot>
 
-<x-table.index :headings="['Subject', 'Exam', 'Description', 'Duration']" :padded="false">
-    @foreach ($exams as $exam)
-        <x-table.tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'">
-            <x-table.td>{{ $exam->subject->name }}</x-table.td>
-            <x-table.td>{{ $exam->name }}</x-table.td>
-            <x-table.td>{{ $exam->description }}</x-table.td>
-            <x-table.td>{{ $exam->formatted_duration }}</x-table.td>
-        </x-table.tr>
-    @endforeach
-</x-table.index>
+<x-container :padded="false">
+    <x-table.index :headings="['Subject', 'Exam', 'Description', 'Duration']">
+        @foreach ($exams as $exam)
+            <x-table.tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'">
+                <x-table.td>{{ $exam->subject->name }}</x-table.td>
+                <x-table.td>{{ $exam->name }}</x-table.td>
+                <x-table.td>{{ $exam->description }}</x-table.td>
+                <x-table.td>{{ $exam->formatted_duration }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.index>
+</x-container>

@@ -8,12 +8,14 @@
     </button>
 </x-slot>
 
-<x-table.index :headings="['Student', 'Subject', 'Status']" :padded="false">
-    @foreach ($transcripts as $transcript)
-        <x-table.tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
-            <x-table.td>{{ $transcript->student->name }}</x-table.td>
-            <x-table.td>{{ $transcript->subject->name }}</x-table.td>
-            <x-table.td>{{ $transcript->status->name }}</x-table.td>
-        </x-table.tr>
-    @endforeach
-</x-table.index>
+<x-container :padded="false">
+    <x-table.index :headings="['Student', 'Subject', 'Status']">
+        @foreach ($transcripts as $transcript)
+            <x-table.tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
+                <x-table.td>{{ $transcript->student->name }}</x-table.td>
+                <x-table.td>{{ $transcript->subject->name }}</x-table.td>
+                <x-table.td>{{ $transcript->status->name }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.index>
+</x-container>

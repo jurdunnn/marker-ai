@@ -8,11 +8,13 @@
     </button>
 </x-slot>
 
-<x-table.index :headings="['Subject', 'Description']" :padded="false">
-    @foreach ($subjects as $subject)
-        <x-table.tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
-            <x-table.td>{{ $subject->name }}</x-table.td>
-            <x-table.td>{{ $subject->description }}</x-table.td>
-        </x-table.tr>
-    @endforeach
-</x-table.index>
+<x-container :padded="false">
+    <x-table.index :headings="['Subject', 'Description']">
+        @foreach ($subjects as $subject)
+            <x-table.tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
+                <x-table.td>{{ $subject->name }}</x-table.td>
+                <x-table.td>{{ $subject->description }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.index>
+</x-container>
