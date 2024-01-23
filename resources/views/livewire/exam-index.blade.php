@@ -8,27 +8,13 @@
     </button>
 </x-slot>
 
-<x-container>
-    @if ($exams)
-        <table class="w-full">
-            <thead>
-                <tr class="text-left">
-                    <th>{{ __('Subject') }}</th>
-                    <th>{{ __('Exam') }}</th>
-                    <th>{{ __('Description') }}</th>
-                    <th>{{ __('Duration') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($exams as $exam)
-                    <tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $exam->subject->name }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $exam->name }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $exam->description }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $exam->formatted_duration }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-</x-container>
+<x-table.index :headings="['Subject', 'Exam', 'Description', 'Duration']" :padded="false">
+    @foreach ($exams as $exam)
+        <x-table.tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'">
+            <x-table.td>{{ $exam->subject->name }}</x-table.td>
+            <x-table.td>{{ $exam->name }}</x-table.td>
+            <x-table.td>{{ $exam->description }}</x-table.td>
+            <x-table.td>{{ $exam->formatted_duration }}</x-table.td>
+        </x-table.tr>
+    @endforeach
+</x-table.index>

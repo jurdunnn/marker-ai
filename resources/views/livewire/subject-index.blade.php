@@ -8,23 +8,11 @@
     </button>
 </x-slot>
 
-<x-container>
-    @if ($subjects)
-        <table class="w-full">
-            <thead>
-                <tr class="text-left">
-                    <th>{{ __('Subject') }}</th>
-                    <th>{{ __('Description') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($subjects as $subject)
-                    <tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $subject->name }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $subject->description }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-</x-container>
+<x-table.index :headings="['Subject', 'Description']" :padded="false">
+    @foreach ($subjects as $subject)
+        <x-table.tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
+            <x-table.td>{{ $subject->name }}</x-table.td>
+            <x-table.td>{{ $subject->description }}</x-table.td>
+        </x-table.tr>
+    @endforeach
+</x-table.index>

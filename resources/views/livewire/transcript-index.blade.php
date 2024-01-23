@@ -8,25 +8,12 @@
     </button>
 </x-slot>
 
-<x-container>
-    @if ($transcripts)
-        <table class="w-full">
-            <thead>
-                <tr class="text-left">
-                    <th>{{ __('Student') }}</th>
-                    <th>{{ __('Class') }}</th>
-                    <th>{{ __('Status') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transcripts as $transcript)
-                    <tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'" class="text-gray-500 bg-white border-b cursor-pointer hover:scale-[101%] hover:font-semibold ease-in-out duration-75">
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->student->name }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->subject->name }}</td>
-                        <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->status->name }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-</x-container>
+<x-table.index :headings="['Student', 'Subject', 'Status']" :padded="false">
+    @foreach ($transcripts as $transcript)
+        <x-table.tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
+            <x-table.td>{{ $transcript->student->name }}</x-table.td>
+            <x-table.td>{{ $transcript->subject->name }}</x-table.td>
+            <x-table.td>{{ $transcript->status->name }}</x-table.td>
+        </x-table.tr>
+    @endforeach
+</x-table.index>
