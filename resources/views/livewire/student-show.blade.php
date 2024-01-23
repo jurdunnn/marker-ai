@@ -32,72 +32,33 @@
         </x-container>
     </div>
 
-    <div class="mt-8">
-        <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Exams') }}</h2>
+    <x-table.contained-index :headings="['Subject', 'Exam', 'Description', 'Duration']" title='Exams'>
+        @foreach ($student->exams() as $exam)
+            <x-table.tr onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'">
+                <x-table.td>{{ $exam->subject->name }}</x-table.td>
+                <x-table.td>{{ $exam->name }}</x-table.td>
+                <x-table.td>{{ $exam->description }}</x-table.td>
+                <x-table.td>{{ $exam->formatted_duration }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.contained-index>
 
-            <table class="w-full">
-                <tbody>
-                    <tr>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Subject') }}</th>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Exam') }}</th>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Duration') }}</th>
-                    </tr>
+    <x-table.contained-index :headings="['Name', 'Description']" title="Subjects">
+        @foreach ($student->subjects() as $subject)
+            <x-table.tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
+                <x-table.td>{{ $subject->name }}</x-table.td>
+                <x-table.td>{{ $subject->description }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.contained-index>
 
-                    @foreach ($student->exams() as $exam)
-                        <tr class="cursor-pointer" onclick="window.location='{{ route('exam.show', ['exam' => $exam->id]) }}'">
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $exam->subject->name }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $exam->name }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $exam->formatted_duration }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-container>
-    </div>
-
-    <div class="mt-8">
-        <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Subjects') }}</h2>
-
-            <table class="w-full">
-                <tbody>
-                    <tr>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Subject') }}</th>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Description') }}</th>
-                    </tr>
-
-                    @foreach ($student->subjects() as $subject)
-                        <tr class="cursor-pointer" onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $subject->name }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $subject->description }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-container>
-    </div>
-
-    <div class="mt-8">
-        <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Transcriptions') }}</h2>
-
-            <table class="w-full">
-                <tbody>
-                    <tr>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Subject') }}</th>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Exam') }}</th>
-                        <th class="py-4 text-sm text-left whitespace-nowrap">{{ __('Status') }}</th>
-                    </tr>
-                    @foreach ($student->transcriptions as $transcription)
-                        <tr class="cursor-pointer" onclick="window.location='{{ route('transcript.show', ['transcript' => $transcription->id]) }}'">
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->subject->name }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->exam->name }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $transcription->status->name }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-container>
-    </div>
+    <x-table.contained-index :headings="['Exam', 'Subject', 'Status']" title='Transcriptions'>
+        @foreach ($student->transcriptions as $transcript)
+            <x-table.tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
+                <x-table.td>{{ $transcript->exam->name }}</x-table.td>
+                <x-table.td>{{ $transcript->subject->name }}</x-table.td>
+                <x-table.td>{{ $transcript->status->name }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.contained-index>
 </div>

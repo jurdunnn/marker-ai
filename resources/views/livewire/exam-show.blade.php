@@ -68,37 +68,23 @@
         </x-container>
     </div>
 
-    <div class="mt-8">
-        <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Students') }}</h2>
+    <x-table.contained-index :headings="['Name', 'Email', 'Date of Birth']" title="Students">
+        @foreach ($exam->students() as $student)
+            <x-table.tr onclick="window.location='{{ route('student.show', ['student' => $student->id]) }}'">
+                <x-table.td>{{ $student->name }}</x-table.td>
+                <x-table.td>{{ $student->email }}</x-table.td>
+                <x-table.td>{{ $student->date_of_birth->format('F d, Y') }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.contained-index>
 
-            <table class="w-full">
-                <tbody>
-                    @foreach ($exam->students() as $student)
-                        <tr class="cursor-pointer" onclick="window.location='{{ route('student.show', ['student' => $student->id]) }}'">
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $loop->index + 1 }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $student->name }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-container>
-    </div>
-
-    <div class="mt-8">
-        <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Transcripts') }}</h2>
-
-            <table class="w-full">
-                <tbody>
-                    @foreach ($exam->transcriptions as $transcript)
-                        <tr class="cursor-pointer" onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $loop->index + 1 }}</td>
-                            <td class="py-4 text-sm whitespace-nowrap">{{ $transcript->student->name }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-container>
-    </div>
+    <x-table.contained-index :headings="['Student', 'Subject', 'Status']" title="Transcripts">
+        @foreach ($exam->transcriptions as $transcript)
+            <x-table.tr onclick="window.location='{{ route('transcript.show', ['transcript' => $transcript->id]) }}'">
+                <x-table.td>{{ $transcript->student->name }}</x-table.td>
+                <x-table.td>{{ $transcript->subject->name }}</x-table.td>
+                <x-table.td>{{ $transcript->status->name }}</x-table.td>
+            </x-table.tr>
+        @endforeach
+    </x-table.contained-index>
 </div>
