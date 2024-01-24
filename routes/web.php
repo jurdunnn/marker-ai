@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Livewire\ExamForm;
 use App\Livewire\ExamIndex;
 use App\Livewire\ExamShow;
+use App\Livewire\MarkerBot;
 use App\Livewire\StudentForm;
 use App\Livewire\StudentIndex;
 use App\Livewire\StudentShow;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
+
+    Route::get('/marker-bot', MarkerBot::class)->middleware(['verified'])->name('marker-bot');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

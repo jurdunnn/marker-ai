@@ -20,6 +20,14 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('marker-bot')" :active="request()->routeIs('marker-bot')">
+                        <span class="w-8 mr-3 text-center group-hover:block">
+                            <i class="fa-solid fa-robot fa-xl"></i>
+                        </span>
+
+                        {{ __('Robot') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.*')">
                         <span class="w-8 mr-3 text-center group-hover:block">
                             <i class="fa-solid fa-user fa-xl"></i>

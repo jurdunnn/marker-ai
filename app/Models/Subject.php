@@ -12,6 +12,7 @@ class Subject extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'icon',
         'description',
     ];
 

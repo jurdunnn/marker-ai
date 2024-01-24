@@ -15,6 +15,16 @@
         </div>
 
         <div>
+            <label for="icon" class="block mb-2 text-sm font-medium text-gray-900">{{ __('Icon') }}</label>
+
+            <input type="text" id="icon" wire:model="icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+
+            @error('icon')
+                <div class="text-sm text-red-500">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div>
             <label for="description" class="block mb-2 text-sm font-medium text-gray-900">{{ __('Description') }}</label>
 
             <input type="description" id="description" wire:model="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>

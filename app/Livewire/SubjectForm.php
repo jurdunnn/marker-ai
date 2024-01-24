@@ -15,8 +15,11 @@ class SubjectForm extends Component
 
     public $description;
 
+    public $icon;
+
     protected $rules = [
         'name' => 'required|min:3',
+        'icon' => 'nullable',
         'description' => 'required|min:3',
     ];
 
@@ -25,6 +28,7 @@ class SubjectForm extends Component
         if ($this->subject) {
             $this->name = $this->subject->name;
             $this->description = $this->subject->description;
+            $this->icon = $this->subject->icon;
         } else {
             $this->creating = true;
         }
@@ -43,11 +47,13 @@ class SubjectForm extends Component
             Subject::create([
                 'user_id' => auth()->id(),
                 'name' => $this->name,
+                'icon' => $this->icon,
                 'description' => $this->description,
             ]);
         } else {
             $this->subject->update([
                 'name' => $this->name,
+                'icon' => $this->icon,
                 'description' => $this->description,
             ]);
         }
