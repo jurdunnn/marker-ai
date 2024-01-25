@@ -29,3 +29,15 @@
 .delete-btn:hover {
     @apply bg-red-700;
 }
+
+li .active {
+    @apply text-blue-500 after:border-blue-200;
+}
+
+li.active span {
+    @apply bg-blue-200;
+}
+
+li.active span span {
+    @apply text-blue-400;
+}

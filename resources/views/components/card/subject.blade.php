@@ -1,5 +1,5 @@
-@props(['subject' => null])
-<div class="w-[300px] select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
+@props(['subject' => null, 'click' => null])
+<button x-on.click="{{ $click }}" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
     <div class="flex gap-x-4">
         <span class="text-blue-300">
             <i class="fa-solid fa-{{ $subject->icon ?? 'circle-dot' }} fa-xl"></i>
@@ -13,4 +13,4 @@
     <p class="text-gray-400">
         {{ __($subject->description) }}
     </p>
-</div>
+</button>
