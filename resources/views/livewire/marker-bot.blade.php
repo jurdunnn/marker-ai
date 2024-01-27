@@ -1,28 +1,28 @@
 <div x-data="robotsData">
     <ol class="flex items-center justify-center px-20">
         <li class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-200 after:border-4 after:inline-block">
-            <span class="flex items-center justify-center w-10 h-10 bg-blue-200 cursor-pointer hover:scale-105  rounded-full lg:h-12 lg:w-12 shrink-0">
+            <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 bg-blue-200 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0">
                 <span class="text-blue-400">
                     <i class="fa-solid fa-flask fa-lg"></i>
                 </span>
             </span>
         </li>
         <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
-            <span class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-blue-200' : 'bg-gray-400'">
+            <span @click="gotoView('1')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="subject.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-school fa-lg"></i>
                 </span>
             </span>
         </li>
         <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
-            <span class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-blue-200' : 'bg-gray-400'">
+            <span @click="gotoView('2')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="exam.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-user fa-lg"></i>
                 </span>
             </span>
         </li>
         <li class="flex items-center" :class="student.complete ? 'text-blue-600' : ''">
-            <span class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-blue-200' : 'bg-gray-400'">
+            <span @click="gotoView('3')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="student.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-file fa-lg"></i>
                 </span>
@@ -187,6 +187,35 @@
                         return;
                     }
 
+                }
+            },
+
+            'gotoView': function (id) {
+                const data = [this.subject, this.exam, this.student, this.transcripts];
+
+                if (data[id]['complete'] === false) {
+                    return;
+                }
+
+                // Set all views after the current view to incomplete
+                const keys = ['subject', 'exam', 'student', 'transcripts'];
+
+                id = parseInt(id, 10);
+
+                // Set all views after the current view to incomplete
+                for (let i = id; i < keys.length; i++) {
+                    this[keys[i]]['complete'] = false;
+                }
+
+                // Hide all other views
+                document.querySelectorAll('[id^="view-"]').forEach(function (element) {
+                    element.style.display = 'none';
+                });
+                // Show the selected view
+                const selectedView = document.getElementById('view-' + id);
+
+                if (selectedView) {
+                    selectedView.style.display = 'grid';
                 }
             }
         }
