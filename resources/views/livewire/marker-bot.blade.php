@@ -1,7 +1,7 @@
 <div x-data="robotsData">
     <ol class="flex items-center justify-center px-20">
         <li class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-200 after:border-4 after:inline-block">
-            <span class="flex items-center justify-center w-10 h-10 bg-blue-200 rounded-full lg:h-12 lg:w-12 shrink-0">
+            <span class="flex items-center justify-center w-10 h-10 bg-blue-200 cursor-pointer hover:scale-105  rounded-full lg:h-12 lg:w-12 shrink-0">
                 <span class="text-blue-400">
                     <i class="fa-solid fa-flask fa-lg"></i>
                 </span>
@@ -21,9 +21,9 @@
                 </span>
             </span>
         </li>
-        <li class="flex items-center">
-            <span class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0">
-                <span class="text-gray-100">
+        <li class="flex items-center" :class="student.complete ? 'text-blue-600' : ''">
+            <span class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-blue-200' : 'bg-gray-400'">
+                <span :class="student.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-file fa-lg"></i>
                 </span>
             </span>
@@ -107,7 +107,7 @@
     <!-- Student -->
     <div id="view-2" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($students as $student)
-            <button @click="setProperty('exam', '{{ $student->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
+            <button @click="setProperty('student', '{{ $student->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
                     <span class="text-blue-300">
                         <i class="fa-solid fa-{{ $student->icon ?? 'circle-dot' }} fa-xl"></i>
@@ -141,6 +141,11 @@
         </div>
     </div>
 
+    <!-- Transcripts -->
+    <div id="view-3" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+        <p>Upload Multiple Files</p>
+    </div>
+
     <script>
         robotsData = {
             'subject': {
@@ -155,6 +160,10 @@
                 'complete': false,
                 'id': null,
             },
+            'transcripts': {
+                'complete': false,
+                'id': null,
+            },
 
             'setProperty': function (property, value) {
                 this[property]['complete'] = true;
@@ -164,7 +173,7 @@
             },
 
             'showNextView': function () {
-                const data = [this.subject, this.exam, this.student];
+                const data = [this.subject, this.exam, this.student, this.transcripts];
 
                 for (let i = 0; i < data.length; i++) {
                     if (data[i]['complete'] === false) {
