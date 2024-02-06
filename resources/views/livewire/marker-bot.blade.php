@@ -1,39 +1,46 @@
-<div x-data="robotsData">
-    <ol class="flex items-center justify-center px-20">
-        <li class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-200 after:border-4 after:inline-block">
+<div x-data="robotsData" wire:ignore>
+    <ol wire:key="navbar" class="flex items-center justify-center px-20">
+        <li wire:key="subjectButton" class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-200 after:border-4 after:inline-block">
             <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 bg-blue-200 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0">
                 <span class="text-blue-400">
                     <i class="fa-solid fa-flask fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
+        <li wire:key="examButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
             <span @click="gotoView('1')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="subject.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-school fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
+        <li wire:key="studentButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
             <span @click="gotoView('2')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="exam.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-user fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li class="flex items-center" :class="student.complete ? 'text-blue-600' : ''">
+        <li wire:key="transcriptsButton"class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="student.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
             <span @click="gotoView('3')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-blue-200' : 'bg-gray-400'">
                 <span :class="student.complete ? 'text-blue-400' : 'text-gray-100'">
                     <i class="fa-solid fa-file fa-lg"></i>
                 </span>
             </span>
         </li>
+        <li wire:key="completeButton" class="flex items-center" :class="transcripts.complete ? 'text-green-600' : ''">
+            <span @click="gotoView('4')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="transcripts.complete ? 'bg-green-400' : 'bg-gray-400'">
+                <span :class="transcripts.complete ? 'text-green-200' : 'text-gray-100'">
+                    <i class="fa-solid fa-check fa-lg"></i>
+                </span>
+            </span>
+        </li>
     </ol>
 
     <!-- Subject -->
-    <div id="view-0" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+    <div wire:key="view-0" id="view-0" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($subjects as $subject)
-            <button @click="setProperty('subject', '{{ $subject->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
+            <button wire:key="{{ 'subject' . $subject->id }}" @click="setProperty('subject', '{{ $subject->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
                     <span class="text-blue-300">
                         <i class="fa-solid fa-{{ $subject->icon ?? 'circle-dot' }} fa-xl"></i>
@@ -68,7 +75,7 @@
     </div>
 
     <!-- Exam -->
-    <div id="view-1" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+    <div wire:key="view-1" id="view-1" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($exams as $exam)
             <button @click="setProperty('exam', '{{ $exam->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
@@ -105,7 +112,7 @@
     </div>
 
     <!-- Student -->
-    <div id="view-2" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+    <div wire:key="view-2" id="view-2" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($students as $student)
             <button @click="setProperty('student', '{{ $student->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
@@ -142,95 +149,97 @@
     </div>
 
     <!-- Transcripts -->
-    <div id="view-3" style="display: none;">
-        <div x-data="fileUpload()">
-            <div class="relative flex flex-col items-center justify-center h-screen bg-slate-200"
-                 x-on:drop="isDropping = false"
-                 x-on:drop.prevent="handleFileDrop($event)"
-                 x-on:dragover.prevent="isDropping = true"
-                 x-on:dragleave.prevent="isDropping = false"
-             >
-                 <div class="absolute top-0 bottom-0 left-0 right-0 z-30 flex items-center justify-center bg-blue-500 opacity-90"
-                      x-show="isDropping"
-                      >
-                      <span class="text-3xl text-white">Release file to upload!</span>
-                 </div>
+    <div wire:key="view-3" id="view-3" style="display: none;">
+        <div class="relative flex flex-col items-center justify-center h-screen bg-slate-200"
+             x-on:drop="isDropping = false"
+             x-on:drop.prevent="handleFileDrop($event)"
+             x-on:dragover.prevent="isDropping = true"
+             x-on:dragleave.prevent="isDropping = false"
+         >
+             <div class="absolute top-0 bottom-0 left-0 right-0 z-30 flex items-center justify-center bg-blue-500 opacity-90"
+                  x-show="isDropping"
+                  >
+                  <span class="text-3xl text-white">Release file to upload!</span>
+             </div>
 
-                 <label
-                     class="flex flex-col items-center justify-center w-1/2 bg-white border shadow cursor-pointer h-1/2 rounded-2xl hover:bg-slate-50"
-                     for="file-upload"
-                     >
-                     <h3 class="text-3xl">Click here to select files to upload</h3>
+             <label
+                 class="flex flex-col items-center justify-center w-1/2 bg-white border shadow cursor-pointer h-1/2 rounded-2xl hover:bg-slate-50"
+                 for="file-upload"
+                 >
+                 <h3 class="text-3xl">Click here to select files to upload</h3>
 
-                     <em class="italic text-slate-400">(Or drag files to the page)</em>
+                 <em class="italic text-slate-400">(Or drag files to the page)</em>
 
-                     <div class="bg-gray-200 h-[2px] w-1/2 mt-3">
-                         <div
-                             class="bg-blue-500 h-[2px]"
-                             style="transition: width 1s"
-                             :style="`width: ${progress}%;`"
-                             x-show="isUploading"
-                             >
-                         </div>
+                 <div class="bg-gray-200 h-[2px] w-1/2 mt-3">
+                     <div
+                         class="bg-blue-500 h-[2px]"
+                         style="transition: width 1s"
+                         :style="`width: ${progress}%;`"
+                         x-show="isUploading"
+                         >
                      </div>
-                 </label>
+                 </div>
+             </label>
 
-                 @if(count($files))
-                     <ul class="mt-5 list-disc">
-                         @foreach($files as $file)
-                             <li>
-                                 {{$file->getClientOriginalName()}}
-                                 <button class="text-red-500" @click="removeUpload('{{$file->getFilename()}}')">X</button>
-                             </li>
-                         @endforeach
-                     </ul>
-                 @endif
 
-                 <input type="file" id="file-upload" multiple @change="handleFileSelect" class="hidden" />
+             <input type="file" id="file-upload" multiple @change="handleFileSelect" class="hidden" />
+        </div>
+    </div>
+
+    <div wire:key="view-4" id="view-4" style="display: none;">
+        <div class="flex flex-col items-center justify-center w-3/4 mx-auto mt-12 sm:px-6 lg:px-8">
+            <div class="w-full overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <table class="w-full">
+                        <tbody>
+                            <tr>
+                                <td class="py-4 text-sm whitespace-nowrap">{{ __('Subject') }}</td>
+                                <td class="py-4 text-sm whitespace-nowrap" x-text="subject.id"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="py-4 text-sm whitespace-nowrap">{{ __('Exam') }}</td>
+                                <td class="py-4 text-sm whitespace-nowrap" x-text="exam.id"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="py-4 text-sm whitespace-nowrap">{{ __('Student') }}</td>
+                                <td class="py-4 text-sm whitespace-nowrap" x-text="student.id"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="py-4 text-sm whitespace-nowrap">{{ __('Number of Transcripts') }}</td>
+                                <td class="py-4 text-sm whitespace-nowrap" x-text="files.length"></td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 text-sm whitespace-nowrap">{{ __('Transcripts') }}</td>
+                                <td>
+                                    <ul>
+                                        <template x-for="file in files">
+                                            <li>
+                                                <span x-text="file.name"></span>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+            <button class="w-1/2 py-2 mt-8 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                {{ __('Process Transcripts') }}
+            </button>
         </div>
     </div>
 
     <script>
-        function fileUpload() {
-
-            return {
-                isDropping: false,
-                isUploading: false,
-                progress: 0,
-                handleFileSelect(event) {
-                    if (event.target.files.length) {
-                        this.uploadFiles(event.target.files)
-                    }
-                },
-                handleFileDrop(event) {
-                    if (event.dataTransfer.files.length > 0) {
-                        this.uploadFiles(event.dataTransfer.files)
-                    }
-                },
-                uploadFiles(files) {
-                    const $this = this
-                    this.isUploading = true
-                    @this.uploadMultiple('files', files,
-                        function (success) {
-                            $this.isUploading = false
-                            $this.progress = 0
-                        },
-                        function(error) {
-                            console.log('error', error)
-                        },
-                        function (event) {
-                            $this.progress = event.detail.progress
-                        }
-                    )
-                },
-                removeUpload(filename) {
-                    @this.removeUpload('files', filename)
-                },
-            }
-        }
-
         robotsData = {
+            isDropping: false,
+            isUploading: false,
+            files: [],
+            progress: 0,
             'subject': {
                 'complete': false,
                 'id': null,
@@ -247,16 +256,63 @@
                 'complete': false,
                 'id': null,
             },
+            'finish': {
+                'complete': false,
+                'id': null,
+            },
+
+            'handleFileSelect': function (event) {
+                if (event.target.files.length) {
+                    this.uploadFiles(event.target.files)
+                }
+            },
+
+            'handleFileDrop': function (event) {
+                if (event.dataTransfer.files.length > 0) {
+                    this.uploadFiles(event.dataTransfer.files)
+                }
+            },
+
+            'uploadFiles': function (files) {
+                const $this = this
+                this.isUploading = true
+                @this.uploadMultiple('files', files,
+                    function (success) {
+                        $this.isUploading = false
+                        $this.progress = 0
+                    },
+                    function(error) {
+                        console.log('error', error)
+                    },
+                    function (event) {
+                        $this.progress = event.detail.progress
+                    }
+                )
+
+                this.files = files;
+
+                console.log(this.files);
+
+                this.transcripts['complete'] = true;
+
+                this.showNextView();
+            },
+
+            'removeUpload': function (filename) {
+                @this.removeUpload('files', filename)
+            },
 
             'setProperty': function (property, value) {
                 this[property]['complete'] = true;
                 this[property]['id'] = value;
 
+                @this.dispatch('setProperty', {key: property, value: value});
+
                 this.showNextView();
             },
 
             'showNextView': function () {
-                const data = [this.subject, this.exam, this.student, this.transcripts];
+                const data = [this.subject, this.exam, this.student, this.transcripts, this.finish];
 
                 for (let i = 0; i < data.length; i++) {
                     if (data[i]['complete'] === false) {
