@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Transcription;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -15,7 +17,14 @@ class MarkerBot extends Component
 
     public array $files = [];
 
-    public $listeners = ['setProperty'];
+    public $listeners = ['setProperty', 'submit'];
+
+    protected $rules = [
+        'properties.subject' => 'required',
+        'properties.exam' => 'required',
+        'properties.student' => 'required',
+        'files' => 'required|array|min:1',
+    ];
 
     public Collection $subjects, $exams, $students;
 
@@ -49,5 +58,25 @@ class MarkerBot extends Component
         $files = array_merge($this->getPropertyValue($name), $files);
 
         $this->syncInput($name, $files);
+    }
+
+    public function submit()
+    {
+        $this->validate();
+
+        foreach ($this->files as $file) {
+            Log::info('Creating new transcript for file: ' . $file->getFilename());
+
+            Transcription::create([
+                'user_id' => auth()->id(),
+                'subject_id' => $this->properties['subject'],
+                'exam_id' => $this->properties['exam'],
+                'student_id' => $this->properties['student'],
+                'url' => $file->store('transcripts'),
+                'tokens' => 0,
+            ]);
+        }
+
+        $this->redirect(route('transcript.index'));
     }
 }

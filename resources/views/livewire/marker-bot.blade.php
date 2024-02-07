@@ -228,7 +228,7 @@
                 </div>
             </div>
 
-            <button class="w-1/2 py-2 mt-8 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            <button @click="@this.dispatch('submit')" class="w-1/2 py-2 mt-8 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
                 {{ __('Process Transcripts') }}
             </button>
         </div>
