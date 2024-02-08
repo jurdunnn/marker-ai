@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Jobs\CreateTranscriptBatch;
 use App\Models\Transcription;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -64,19 +66,14 @@ class MarkerBot extends Component
     {
         $this->validate();
 
-        foreach ($this->files as $file) {
-            Log::info('Creating new transcript for file: ' . $file->getFilename());
+        $filePaths = collect();
 
-            Transcription::create([
-                'user_id' => auth()->id(),
-                'subject_id' => $this->properties['subject'],
-                'exam_id' => $this->properties['exam'],
-                'student_id' => $this->properties['student'],
-                'url' => $file->store('transcripts'),
-                'tokens' => 0,
-            ]);
+        foreach ($this->files as $file) {
+            $storedFile = Storage::putFileAs('transcripts', $file, $file->getFilename());
+
+            $filePaths->add(Storage::url($storedFile));
         }
 
-        $this->redirect(route('transcript.index'));
+        CreateTranscriptBatch::dispatch($filePaths, $this->properties);
     }
 }
