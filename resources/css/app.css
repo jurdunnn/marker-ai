@@ -41,3 +41,29 @@ li.active span {
 li.active span span {
     @apply text-blue-400;
 }
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+[data-title]:after {
+    content: attr(data-title);
+    @apply text-white bg-red-600;
+    position: absolute;
+    padding: 1px 5px 2px 5px;
+    width: 200px;
+    bottom: 100%; /* Position above the element */
+    left: 50%; /* Center horizontally relative to the element */
+    transform: translateX(-50%) translateY(-5px); /* Adjust for the width of the tooltip and add a little space above the element */
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    z-index: 99999;
+    visibility: hidden;
+    border-radius: 4px; /* Rounded corners */
+}
+
+[data-title] {
+    position: relative; /* This ensures that the tooltip is positioned relative to this element */
+}

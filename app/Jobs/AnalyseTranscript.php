@@ -38,62 +38,67 @@ class AnalyseTranscript implements ShouldQueue
             'status_id' => TranscriptionStatusType::where('name', 'Analysing')->first()->id
         ]);
 
+        if ($this->transcript->text === null) {
+            Log::info('Transcript ' . $this->transcript->id . ' has no text to analyse');
+
+            $this->updateStatus(TranscriptionStatusType::where('name', 'Error')->first()->name);
+
+            return;
+        }
+
+        if (str_word_count($this->transcript->text) > 400) {
+            Log::info('Transcript ' . $this->transcript->id . ' has too many words to analyse');
+
+            $this->updateStatus(TranscriptionStatusType::where('name', 'Error')->first()->name);
+
+            return;
+        }
+
         Log::info('Analyzing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
 
-        collect(explode('.', $this->transcript->text)) // Split the text into sentences
-            ->filter() // Remove empty sentences
-            ->each(function ($item) use ($model, $key) { // For each sentence
-                $request = [
-                    "model" => $model,
-                    "messages" => [
-                        (object) [
-                            "role" => "system",
-                            "content" => "Output JSON the grammatical errors of this transcription. Provide each word relevant to the grammatical error as a sentence, so that I may identify where the grammatical error is. Provide a description of each error. Be sure to look out for the capitalization of words. Strictly do not report that there are no grammatical errors. If there are no errors, then skip. Try to avoid reporting on errors within quotation marks, such as 'everything was in vicks', as this is a quote from a book. The JSON keys returned should be strictly followed: sentence, description"
-                        ],
-                        (object) [
-                            "role" => "user",
-                            "content" => $item
-                        ]
-                    ],
-                    "max_tokens" => 4096,
-                ];
+        $request = [
+            "model" => $model,
+            "messages" => [
+                (object) [
+                    "role" => "system",
+                    "content" => "Output JSON the grammatical errors of this transcription. Provide each word relevant to the grammatical error as a sentence, so that I may identify where the grammatical error is. Provide a description of each error. Be sure to look out for the capitalization of words. Strictly do not report that there are no grammatical errors. If there are no errors, then skip. Try to avoid reporting on errors within quotation marks, such as 'everything was in vicks', as this is a quote from a book. The JSON keys returned should be strictly followed: sentence, description"
+                ],
+                (object) [
+                    "role" => "user",
+                    "content" => $this->transcript->text
+                ]
+            ],
+            "max_tokens" => 4096,
+        ];
 
-                $response = Http::withHeaders([ // Send the request
-                    'Authorization' => 'Bearer ' . $key,
-                    'Content-Type' => 'application/json'
-                ])->post('https://api.openai.com/v1/chat/completions', $request);
+        $response = Http::withHeaders([ // Send the request
+            'Authorization' => 'Bearer ' . $key,
+            'Content-Type' => 'application/json'
+        ])->post('https://api.openai.com/v1/chat/completions', $request);
 
-                $analysis = Analysis::where('transcription_id', $this->transcript->id)->first();
+        $analysis = Analysis::where('transcription_id', $this->transcript->id)->first();
 
-                if (!$analysis) {
-                    $analysis = Analysis::create([
-                        'transcription_id' => $this->transcript->id,
-                        'text' => json_encode($response->json()['choices'][0]['message']['content']),
-                        'tokens' => $response->json()['usage']['total_tokens'],
-                    ]);
-                } else {
-                    $analysisArray = (array) json_decode($analysis->text, true);
+        if (!$analysis) {
+            $analysis = Analysis::create([
+                'transcription_id' => $this->transcript->id,
+                'text' => json_encode($response->json()['choices'][0]['message']['content']),
+                'tokens' => $response->json()['usage']['total_tokens'],
+            ]);
+        } else {
 
-                    $additionalContent = (array) json_decode($response->json()['choices'][0]['message']['content'], true);
+            $content = (array) json_decode($response->json()['choices'][0]['message']['content'], true);
 
-                    $mergedArray = array_merge($analysisArray, $additionalContent);
+            $normalizeErrorsArray = $this->normalizeErrorsArray($content);
 
-                    $normalizeErrorsArray = $this->normalizeErrorsArray($mergedArray);
+            $jsonText = json_encode($normalizeErrorsArray);
 
-                    $mergedJsonText = json_encode($normalizeErrorsArray);
+            $analysis->update([
+                'text' => $jsonText,
+                'tokens' => $analysis->tokens + (int) $response->json()['usage']['total_tokens'],
+            ]);
+        }
 
-                    $analysis->update([
-                        'text' => $mergedJsonText,
-                        'tokens' => $analysis->tokens + (int) $response->json()['usage']['total_tokens'],
-                    ]);
-                }
-
-                Log::info('Analysed sentence: ' . $item);
-            });
-
-        $this->transcript->update([
-            'status_id' => TranscriptionStatusType::where('name', 'Complete')->first()->id
-        ]);
+        $this->updateStatus(TranscriptionStatusType::where('name', 'Complete')->first()->name);
 
         Log::info('Finished analysing transcript ' . $this->transcript->id . ' with ' . $model . ' model');
     }
@@ -113,5 +118,12 @@ class AnalyseTranscript implements ShouldQueue
         }
 
         return $normalized;
+    }
+
+    private function updateStatus($status)
+    {
+        $this->transcript->update([
+            'status_id' => TranscriptionStatusType::where('name', $status)->first()->id
+        ]);
     }
 }
