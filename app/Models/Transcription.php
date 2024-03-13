@@ -92,7 +92,7 @@ class Transcription extends Model
 
                 $text = str_replace(
                     $error['sentence'],
-                    '<span id="sentence-error-' . $index . '" style="position: relative; cursor: help; color:white; background-color: #EF4444;" data-title="' . $title . '">' . $error['sentence'] . '</span>',
+                    '<span id="sentence-error-' . $index . '" style="position: relative; cursor: help; color: white; background-color: red; border-radius: 10px; padding: 1px 8px;" data-title="' . $title . '">' . $error['sentence'] . '</span>',
                     $text
                 );
             }
