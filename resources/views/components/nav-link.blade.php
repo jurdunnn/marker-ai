@@ -1,4 +1,4 @@
-@props(['active'])
+@props(['active', 'icon' => null])
 
 @php
 $classes = ($active ?? false)
@@ -7,5 +7,11 @@ $classes = ($active ?? false)
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
+    <span class="w-8 mr-3 text-center group-hover:block">
+        <i class="fa-solid fa-{{ $icon }} fa-xl"></i>
+    </span>
+
+    <div class="block md:hidden lg:block">
+        {{ $slot }}
+    </div>
 </a>

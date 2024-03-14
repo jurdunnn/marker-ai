@@ -1,62 +1,38 @@
-<nav x-data="{ open: false }" class="fixed inset-0 z-10 bg-white md:relative md:w-1/5">
+<nav x-data="{ open: false }" class="fixed inset-0 z-10 w-full bg-white md:relative md:w-1/6">
     <!-- Primary Navigation Menu -->
-    <div class="fixed h-full sm:px-6 lg:px-8">
+    <div class="h-full">
         <div class="flex flex-col justify-between h-full">
             <div class="w-full">
                 <!-- Logo -->
-                <div class="flex items-center mt-4 shrink-0">
+                <div class="flex mt-4 shrink-0">
                     <a href="{{ route('dashboard') }}" class="mx-auto">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9" />
+                        <x-application-logo />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden w-full py-8 mt-12 gap-y-8 sm:flex-col sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-gauge fa-xl"></i>
-                        </span>
-
+                <div class="flex flex-col justify-center px-4 py-8 mt-12 gap-y-8">
+                    <x-nav-link icon="gauge" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('marker-bot')" :active="request()->routeIs('marker-bot')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-robot fa-xl"></i>
-                        </span>
-
+                    <x-nav-link icon="robot" :href="route('marker-bot')" :active="request()->routeIs('marker-bot')">
                         {{ __('Robot') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.*')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-user fa-xl"></i>
-                        </span>
-
+                    <x-nav-link icon="user" :href="route('student.index')" :active="request()->routeIs('student.*')">
                         {{ __('Students') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('exam.index')" :active="request()->routeIs('exam.*')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-school fa-xl"></i>
-                        </span>
-
+                    <x-nav-link icon="school" :href="route('exam.index')" :active="request()->routeIs('exam.*')">
                         {{ __('Exams') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('subject.index')" :active="request()->routeIs('subject.*')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-flask fa-xl"></i>
-                        </span>
-
+                    <x-nav-link icon="flask" :href="route('subject.index')" :active="request()->routeIs('subject.*')">
                         {{ __('Subjects') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('transcript.index')" :active="request()->routeIs('transcript.*')">
-                        <span class="w-8 mr-3 text-center group-hover:block">
-                            <i class="fa-solid fa-file fa-xl"></i>
-                        </span>
-
+                    <x-nav-link icon="file" :href="route('transcript.index')" :active="request()->routeIs('transcript.*')">
                         {{ __('Transcripts') }}
                     </x-nav-link>
                 </div>
