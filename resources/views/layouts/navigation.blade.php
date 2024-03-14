@@ -11,13 +11,13 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="flex flex-col justify-center px-4 py-8 mt-12 gap-y-8">
+                <div class="flex flex-col justify-center px-4 py-8 mt-12 gap-y-5">
                     <x-nav-link icon="gauge" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
                     <x-nav-link icon="robot" :href="route('marker-bot')" :active="request()->routeIs('marker-bot')">
-                        {{ __('Robot') }}
+                        {{ __('Marker AI') }}
                     </x-nav-link>
 
                     <x-nav-link icon="user" :href="route('student.index')" :active="request()->routeIs('student.*')">
