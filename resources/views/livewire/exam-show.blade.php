@@ -70,7 +70,7 @@
 
     <x-table.contained-index :headings="['Name', 'Email', 'Date of Birth']" title="Students">
         @foreach ($exam->students() as $student)
-            <x-table.tr onclick="window.location='{{ route('student.show', ['student' => $student->id]) }}'">
+            <x-table.tr onclick="window.location='{{ route('exam.student.show', ['exam' => $exam->id, 'student' => $student->id]) }}'">
                 <x-table.td>{{ $student->name }}</x-table.td>
                 <x-table.td>{{ $student->email }}</x-table.td>
                 <x-table.td>{{ $student->date_of_birth->format('F d, Y') }}</x-table.td>

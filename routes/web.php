@@ -11,6 +11,7 @@ use App\Livewire\StudentShow;
 use App\Livewire\SubjectForm;
 use App\Livewire\SubjectIndex;
 use App\Livewire\SubjectShow;
+use App\Livewire\TestShow;
 use App\Livewire\TranscriptForm;
 use App\Livewire\TranscriptIndex;
 use App\Livewire\TranscriptShow;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::get('create', ExamForm::class)->name('exam.create');
         Route::get('{exam}', ExamShow::class)->name('exam.show');
         Route::get('{exam}/edit', ExamForm::class)->name('exam.edit');
+        Route::get('{exam}/student/{student}', TestShow::class)->name('exam.student.show');
     });
 
     // Student
