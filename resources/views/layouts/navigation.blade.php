@@ -38,26 +38,18 @@
                 </div>
             </div>
 
-            <button onclick="location.href='{{ route('profile.edit') }}'" class="flex flex-row items-center p-1 mb-8 hover:border-2 hover:shadow-xl hover:rounded-lg hover:border-gray-400 gap-x-4">
-                <div class="flex items-center justify-center my-auto rounded-full bg-primary size-12">
-                    <span class="w-8 text-center text-white group-hover:block">
-                        <i class="fa-solid fa-user fa-xl"></i>
-                    </span>
-                </div>
 
-                <div>
-                    <p class="font-medium text-gray-800">{{ Auth()->user()->name }}</p>
-
-                    <div class="flex gap-x-1">
-                        <div class="flex items-center justify-center my-auto bg-yellow-500 rounded-full size-4">
-                            <span class="text-white">
-                                <i class="fa-solid fa-crown fa-2xs"></i>
-                            </span>
-                        </div>
-                        <p class="my-auto text-sm text-left text-gray-500">Premium User</p>
+            <div class="flex flex-col justify-center p-4 mt-12">
+                <x-nav-link
+                    icon="{{ Auth::user()->name === 'Jordan Downs' ? 'crown' : 'user-circle'}}"
+                    onclick="location.href='{{ route('profile.edit') }}'"
+                    :active="request()->routeIs('profile.edit')"
+                >
+                    <div>
+                        {{ Auth::user()->name }}
                     </div>
-                </div>
-            </button>
+                </x-nav-link>
+            </div>
         </div>
     </div>
 </nav>
