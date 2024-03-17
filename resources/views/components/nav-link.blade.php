@@ -8,11 +8,11 @@ $classes .= ($active ?? false)
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    <span class="absolute w-8 mr-3 text-center group-hover:block left-2">
+    <span class="absolute w-8 mr-3 text-center {{ $active ? 'text-white' : 'text-primary' }} group-hover:block left-2">
         <i class="fa-solid fa-{{ $icon }} fa-xl"></i>
     </span>
 
-    <div class="block md:hidden lg:block">
+    <div class="block {{ $active ? 'text-white' : 'text-primary' }} md:hidden lg:block">
         {{ $slot }}
     </div>
 </a>
