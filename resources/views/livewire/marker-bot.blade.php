@@ -1,29 +1,29 @@
 <div x-data="robotsData" wire:ignore>
     <ol wire:key="navbar" class="flex items-center justify-center px-20">
-        <li wire:key="subjectButton" class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-200 after:border-4 after:inline-block">
-            <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 bg-blue-200 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0">
-                <span class="text-blue-400">
+        <li wire:key="subjectButton" class="flex w-full items-center text-primary-dark after:content-[''] after:w-full after:h-1 after:border-b after:border-primary-light after:border-4 after:inline-block">
+            <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-primary-light hover:scale-105 lg:h-12 lg:w-12 shrink-0">
+                <span class="text-primary">
                     <i class="fa-solid fa-flask fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li wire:key="examButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
-            <span @click="gotoView('1')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-blue-200' : 'bg-gray-400'">
-                <span :class="subject.complete ? 'text-blue-400' : 'text-gray-100'">
+        <li wire:key="examButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
+            <span @click="gotoView('1')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-primary-light' : 'bg-gray-400'">
+                <span :class="subject.complete ? 'text-primary' : 'text-gray-100'">
                     <i class="fa-solid fa-school fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li wire:key="studentButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
-            <span @click="gotoView('2')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-blue-200' : 'bg-gray-400'">
-                <span :class="exam.complete ? 'text-blue-400' : 'text-gray-100'">
+        <li wire:key="studentButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
+            <span @click="gotoView('2')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-primary-light' : 'bg-gray-400'">
+                <span :class="exam.complete ? 'text-primary' : 'text-gray-100'">
                     <i class="fa-solid fa-user fa-lg"></i>
                 </span>
             </span>
         </li>
-        <li wire:key="transcriptsButton"class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="student.complete ? 'text-blue-600 after:border-blue-200' : 'after:border-gray-400'">
-            <span @click="gotoView('3')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-blue-200' : 'bg-gray-400'">
-                <span :class="student.complete ? 'text-blue-400' : 'text-gray-100'">
+        <li wire:key="transcriptsButton"class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="student.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
+            <span @click="gotoView('3')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-primary-light' : 'bg-gray-400'">
+                <span :class="student.complete ? 'text-primary' : 'text-gray-100'">
                     <i class="fa-solid fa-file fa-lg"></i>
                 </span>
             </span>
@@ -42,7 +42,7 @@
         @foreach ($subjects as $subject)
             <button wire:key="{{ 'subject' . $subject->id }}" @click="setProperty('subject', '{{ $subject->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
-                    <span class="text-blue-300">
+                    <span class="text-primary">
                         <i class="fa-solid fa-{{ $subject->icon ?? 'circle-dot' }} fa-xl"></i>
                     </span>
 
@@ -59,7 +59,7 @@
 
         <div onclick="location.href='{{ route('subject.create') }}'" class="w-[300px] select-none cursor-pointer hover:shadow-xl flex flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
             <div class="flex gap-x-4">
-                <span class="text-blue-300">
+                <span class="text-primary">
                     <i class="fa-solid fa-square-plus fa-xl"></i>
                 </span>
 
@@ -79,7 +79,7 @@
         @foreach ($exams as $exam)
             <button @click="setProperty('exam', '{{ $exam->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
-                    <span class="text-blue-300">
+                    <span class="text-primary">
                         <i class="fa-solid fa-{{ $exam->icon ?? 'circle-dot' }} fa-xl"></i>
                     </span>
 
@@ -96,7 +96,7 @@
 
         <div onclick="location.href='{{ route('exam.create') }}'" class="w-[300px] select-none cursor-pointer hover:shadow-xl flex flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
             <div class="flex gap-x-4">
-                <span class="text-blue-300">
+                <span class="text-primary">
                     <i class="fa-solid fa-square-plus fa-xl"></i>
                 </span>
 
@@ -116,7 +116,7 @@
         @foreach ($students as $student)
             <button @click="setProperty('student', '{{ $student->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
-                    <span class="text-blue-300">
+                    <span class="text-primary">
                         <i class="fa-solid fa-{{ $student->icon ?? 'circle-dot' }} fa-xl"></i>
                     </span>
 
@@ -133,7 +133,7 @@
 
         <div onclick="location.href='{{ route('student.create') }}'" class="w-[300px] select-none cursor-pointer hover:shadow-xl flex flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
             <div class="flex gap-x-4">
-                <span class="text-blue-300">
+                <span class="text-primary">
                     <i class="fa-solid fa-square-plus fa-xl"></i>
                 </span>
 
@@ -156,7 +156,7 @@
              x-on:dragover.prevent="isDropping = true"
              x-on:dragleave.prevent="isDropping = false"
          >
-             <div class="absolute top-0 bottom-0 left-0 right-0 z-30 flex items-center justify-center bg-blue-500 opacity-90"
+             <div class="absolute top-0 bottom-0 left-0 right-0 z-30 flex items-center justify-center bg-primary opacity-90"
                   x-show="isDropping"
                   >
                   <span class="text-3xl text-white">Release file to upload!</span>
@@ -172,7 +172,7 @@
 
                  <div class="bg-gray-200 h-[2px] w-1/2 mt-3">
                      <div
-                         class="bg-blue-500 h-[2px]"
+                         class="bg-primary h-[2px]"
                          style="transition: width 1s"
                          :style="`width: ${progress}%;`"
                          x-show="isUploading"
@@ -228,7 +228,7 @@
                 </div>
             </div>
 
-            <button @click="@this.dispatch('submit'); window.location.href = '/transcript/list'" class="w-1/2 py-2 mt-8 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            <button @click="@this.dispatch('submit'); window.location.href = '/transcript/list'" class="w-1/2 py-2 mt-8 text-white rounded-lg bg-primary hover:bg-primary-dark">
                 {{ __('Process Transcripts') }}
             </button>
         </div>

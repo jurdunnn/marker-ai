@@ -11,7 +11,7 @@
 <div>
     <div>
         <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Personal Information') }}</h2>
+            <h2 class="text-xl font-semibold text-primary">{{ __('Personal Information') }}</h2>
 
             <table class="w-full">
                 <tbody>

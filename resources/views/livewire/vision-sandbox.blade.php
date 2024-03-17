@@ -33,12 +33,12 @@
                                 <h3 class="font-bold">{{ $transcription->url }}</h3>
                             </div>
 
-                            <button class="px-4 py-2 text-white bg-blue-600 shadow-xl border-1 rounded-xl" wire:click="analyse({{ $transcription->id }})">
+                            <button class="px-4 py-2 text-white shadow-xl bg-primary border-1 rounded-xl" wire:click="analyse({{ $transcription->id }})">
                                 Analyse
                             </button>
                         </div>
 
-                        <div class="flex flex-row gap-x-4 mt-4">
+                        <div class="flex flex-row mt-4 gap-x-4">
                             <img src="{{ $transcription->url }}" alt="">
 
                             <div class="flex flex-col gap-y-8">

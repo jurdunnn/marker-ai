@@ -27,7 +27,7 @@
                 @if (isset($header))
                     <header class="fixed w-full bg-white border-l-2 border-gray-200">
                         <div class="px-4 py-6 max-w-7xl">
-                            <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                            <h2 class="text-xl font-semibold leading-tight text-primary">
                                 {{ $header }}
                             </h2>
                         </div>
@@ -36,8 +36,8 @@
 
                 <div class="mt-20">
                     @isset($headerButtons)
-                        <div class="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                            <div class="flex items-center justify-end pt-2 mx-auto gap-x-3 max-w-7xl sm:px-2 lg:px-4">
+                        <div class="px-8 pt-2 pb-4 mx-auto max-w-7xl">
+                            <div class="flex items-center justify-end pt-2 mx-auto gap-x-3 max-w-7xl">
                                 {{ $headerButtons }}
                             </div>
                         </div>

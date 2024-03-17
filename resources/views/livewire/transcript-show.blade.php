@@ -121,7 +121,7 @@
 <div>
     <div>
         <x-container>
-            <h2 class="text-xl font-semibold">{{ __('Transcript Information') }}</h2>
+            <h2 class="text-xl font-semibold text-primary">{{ __('Transcript Information') }}</h2>
 
             <table class="w-full">
                 <tbody>
@@ -160,10 +160,10 @@
                     <input
                         type="text"
                         id="error-modal-input"
-                        class="w-full px-4 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        class="w-full px-4 text-sm border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                         placeholder="{{ __('Write a new error for this sentence') }}"
                         >
-                        <button type="submit" class="absolute top-0 right-0 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-r-md hover:bg-blue-500">
+                        <button type="submit" class="absolute top-0 right-0 px-4 py-2 text-sm font-medium text-white bg-primary rounded-r-md hover:bg-primary">
                             {{ __('Add Error') }}
                         </button>
                 </form>
