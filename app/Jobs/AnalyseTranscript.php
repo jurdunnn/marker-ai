@@ -77,7 +77,17 @@ class AnalyseTranscript implements ShouldQueue
 
         $content = (array) json_decode($response->json()['choices'][0]['message']['content'], true);
 
-        Log::info("Transcript {$this->transcript->id} has " . sizeof($content) . " errors");
+        $errorsCount = count($content);
+
+        if ($errorsCount === 0) {
+            $this->updateStatus(TranscriptionStatusType::where('name', 'Error')->first()->name);
+
+            Log::info('No errors found in transcript ' . $this->transcript->id . ', failing job');
+
+            $this->fail(new \Exception('No errors found'));
+        }
+
+        Log::info("Transcript {$this->transcript->id} has " . $errorsCount . " errors");
 
         $normalizeErrorsArray = $this->normalizeErrorsArray($content);
 
