@@ -150,7 +150,7 @@
 
     <!-- Transcripts -->
     <div wire:key="view-3" id="view-3" style="display: none;">
-        <div class="relative flex flex-col items-center h-screen py-12 mt-8 bg-slate-200"
+        <div class="relative flex flex-col items-center h-screen py-12 mt-8"
              x-on:drop="isDropping = false"
              x-on:drop.prevent="handleFileDrop($event)"
              x-on:dragover.prevent="isDropping = true"
