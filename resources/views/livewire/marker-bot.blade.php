@@ -2,28 +2,28 @@
     <ol wire:key="navbar" class="flex items-center justify-center px-20">
         <li wire:key="subjectButton" class="flex w-full items-center text-primary-dark after:content-[''] after:w-full after:h-1 after:border-b after:border-primary-light after:border-4 after:inline-block">
             <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-primary-light hover:scale-105 lg:h-12 lg:w-12 shrink-0">
-                <span class="text-primary">
+                <span class="text-white">
                     <i class="fa-solid fa-flask fa-lg"></i>
                 </span>
             </span>
         </li>
         <li wire:key="examButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="subject.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
             <span @click="gotoView('1')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="subject.complete ? 'bg-primary-light' : 'bg-gray-400'">
-                <span :class="subject.complete ? 'text-primary' : 'text-gray-100'">
+                <span :class="subject.complete ? 'text-white' : 'text-gray-100'">
                     <i class="fa-solid fa-school fa-lg"></i>
                 </span>
             </span>
         </li>
         <li wire:key="studentButton" class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="exam.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
             <span @click="gotoView('2')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="exam.complete ? 'bg-primary-light' : 'bg-gray-400'">
-                <span :class="exam.complete ? 'text-primary' : 'text-gray-100'">
+                <span :class="exam.complete ? 'text-white' : 'text-gray-100'">
                     <i class="fa-solid fa-user fa-lg"></i>
                 </span>
             </span>
         </li>
         <li wire:key="transcriptsButton"class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" :class="student.complete ? 'text-primary-dark after:border-primary-light' : 'after:border-gray-400'">
             <span @click="gotoView('3')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:scale-105 lg:h-12 lg:w-12 shrink-0" :class="student.complete ? 'bg-primary-light' : 'bg-gray-400'">
-                <span :class="student.complete ? 'text-primary' : 'text-gray-100'">
+                <span :class="student.complete ? 'text-white' : 'text-gray-100'">
                     <i class="fa-solid fa-file fa-lg"></i>
                 </span>
             </span>
