@@ -150,7 +150,7 @@
 
     <!-- Transcripts -->
     <div wire:key="view-3" id="view-3" style="display: none;">
-        <div class="relative flex flex-col items-center justify-center h-screen bg-slate-200"
+        <div class="relative flex flex-col items-center h-screen py-12 mt-8 bg-slate-200"
              x-on:drop="isDropping = false"
              x-on:drop.prevent="handleFileDrop($event)"
              x-on:dragover.prevent="isDropping = true"
@@ -163,12 +163,12 @@
              </div>
 
              <label
-                 class="flex flex-col items-center justify-center w-1/2 bg-white border shadow cursor-pointer h-1/2 rounded-2xl hover:bg-slate-50"
+                 class="flex flex-col items-center w-1/2 py-8 bg-white border shadow cursor-pointer text-primary rounded-2xl hover:bg-slate-50"
                  for="file-upload"
                  >
-                 <h3 class="text-3xl">Click here to select files to upload</h3>
+                 <h3 class="text-3xl text-primary">Click here to select files to upload</h3>
 
-                 <em class="italic text-slate-400">(Or drag files to the page)</em>
+                 <em class="italic text-primary">Or drag files onto the page</em>
 
                  <div class="bg-gray-200 h-[2px] w-1/2 mt-3">
                      <div
