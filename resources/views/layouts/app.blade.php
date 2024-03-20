@@ -19,13 +19,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="flex min-h-screen bg-gray-200">
+        <div class="flex min-h-screen bg-slate-200">
             @include('layouts.navigation')
 
             <div class="w-full">
                 <!-- Page Heading -->
                 @if (isset($header))
-                    <header class="fixed w-full bg-white border-l-2 border-gray-200">
+                    <header class="fixed w-full bg-white border-l-2 border-slate-200">
                         <div class="px-4 py-6 max-w-7xl">
                             <h2 class="text-xl font-semibold leading-tight text-primary">
                                 {{ $header }}
