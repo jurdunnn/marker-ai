@@ -75,7 +75,7 @@
     </div>
 
     <!-- Exam -->
-    <div wire:key="view-1" id="view-1" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+    <div wire:key="view-1" id="view-1" x-cloak style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($exams as $exam)
             <button @click="setProperty('exam', '{{ $exam->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
@@ -112,7 +112,7 @@
     </div>
 
     <!-- Student -->
-    <div wire:key="view-2" id="view-2" style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
+    <div wire:key="view-2" id="view-2" x-cloak style="display: none;" class="mx-12 mt-20 grid gap-y-8 grid-cols-4">
         @foreach ($students as $student)
             <button @click="setProperty('student', '{{ $student->id}}');" class="w-[300px] text-left select-none flex cursor-pointer hover:shadow-xl flex-col gap-y-4 bg-white rounded-lg px-3 py-4">
                 <div class="flex gap-x-4">
@@ -149,7 +149,7 @@
     </div>
 
     <!-- Transcripts -->
-    <div wire:key="view-3" id="view-3" style="display: none;">
+    <div wire:key="view-3" id="view-3" x-cloak style="display: none;">
         <div class="relative flex flex-col items-center h-screen py-12 mt-8"
              x-on:drop="isDropping = false"
              x-on:drop.prevent="handleFileDrop($event)"
@@ -186,7 +186,7 @@
         </div>
     </div>
 
-    <div wire:key="view-4" id="view-4" style="display: none;">
+    <div wire:key="view-4" id="view-4" x-cloak style="display: none;">
         <div class="flex flex-col items-center justify-center w-3/4 mx-auto mt-12 sm:px-6 lg:px-8">
             <div class="w-full overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -366,7 +366,7 @@
                 for (let i = id; i < keys.length; i++) {
                     this[keys[i]]['complete'] = false;
 
-                    @this.dispatch('setProperty', {key: keys[i], value: ""});
+                    @this.dispatch('setProperty', {key: keys[i], value: null});
                 }
 
                 // Hide all other views

@@ -15,17 +15,21 @@ class MarkerBot extends Component
 {
     use WithFileUploads;
 
+
     public array $properties = [];
 
     public array $files = [];
 
     public $listeners = ['setProperty', 'submit'];
 
-    protected $queryString = [
-        'properties.subject' => ['except' => null, 'as' => 'subject'],
-        'properties.exam' => ['except' => null, 'as' => 'exam'],
-        'properties.student' => ['except' => null, 'as' => 'student'],
-    ];
+    protected function queryString()
+    {
+        return [
+            'properties.subject' => ['except' => '', 'as' => 'subject'],
+            'properties.exam' => ['except' => '', 'as' => 'exam'],
+            'properties.student' => ['except' => '', 'as' => 'student'],
+        ];
+    }
 
     protected $rules = [
         'properties.subject' => 'required',
@@ -50,6 +54,11 @@ class MarkerBot extends Component
 
     public function setProperty($key, $value)
     {
+        if (!$value) {
+            $this->properties[$key] = '';
+            return;
+        }
+
         $this->properties[$key] = $value;
     }
 
