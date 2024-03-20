@@ -12,7 +12,7 @@
     <x-table.index :headings="['Subject', 'Description']">
         @foreach ($subjects as $subject)
             <x-table.tr onclick="window.location='{{ route('subject.show', ['subject' => $subject->id]) }}'">
-                <x-table.td>{{ $subject->name }}</x-table.td>
+                <x-table.td><p class="font-bold text-primary">{{ $subject->name }}</p></x-table.td>
                 <x-table.td>{{ $subject->description }}</x-table.td>
             </x-table.tr>
         @endforeach
