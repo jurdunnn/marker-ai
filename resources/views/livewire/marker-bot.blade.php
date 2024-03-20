@@ -1,5 +1,5 @@
 <div x-data="robotsData" wire:ignore>
-    <ol wire:key="navbar" class="flex items-center justify-center px-20">
+    <ol x-init="checkCompleted" wire:key="navbar" class="flex items-center justify-center px-20">
         <li wire:key="subjectButton" class="flex w-full items-center text-primary-dark after:content-[''] after:w-full after:h-1 after:border-b after:border-primary-light after:border-4 after:inline-block">
             <span @click="gotoView('0')" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-primary-light hover:scale-105 lg:h-12 lg:w-12 shrink-0">
                 <span class="text-white">
@@ -261,6 +261,27 @@
                 'id': null,
             },
 
+            'checkCompleted': function () {
+                const queryString = new URLSearchParams(window.location.search);
+
+                if (queryString.has('subject') && queryString.get('subject') !== "") {
+                    this.subject['complete'] = true;
+                    this.subject['id'] = queryString.get('subject');
+                }
+
+                if (queryString.has('exam') && queryString.get('exam') !== "") {
+                    this.exam['complete'] = true;
+                    this.exam['id'] = queryString.get('exam');
+                }
+
+                if (queryString.has('student') && queryString.get('student') !== "") {
+                    this.student['complete'] = true;
+                    this.student['id'] = queryString.get('student');
+                }
+
+                this.showNextView();
+            },
+
             'handleFileSelect': function (event) {
                 if (event.target.files.length) {
                     this.uploadFiles(event.target.files)
@@ -344,6 +365,8 @@
                 // Set all views after the current view to incomplete
                 for (let i = id; i < keys.length; i++) {
                     this[keys[i]]['complete'] = false;
+
+                    @this.dispatch('setProperty', {key: keys[i], value: ""});
                 }
 
                 // Hide all other views

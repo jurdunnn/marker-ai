@@ -21,6 +21,12 @@ class MarkerBot extends Component
 
     public $listeners = ['setProperty', 'submit'];
 
+    protected $queryString = [
+        'properties.subject' => ['except' => null, 'as' => 'subject'],
+        'properties.exam' => ['except' => null, 'as' => 'exam'],
+        'properties.student' => ['except' => null, 'as' => 'student'],
+    ];
+
     protected $rules = [
         'properties.subject' => 'required',
         'properties.exam' => 'required',
